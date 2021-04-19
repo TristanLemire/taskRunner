@@ -36,20 +36,18 @@ export default function App() {
                 if (route.name === "Todo") {
                   iconName = "ios-list";
                 } else if (route.name === "Album") {
-                  iconName = focused
-                    ? "ios-albums-sharp"
-                    : "ios-albums-outline";
+                  iconName = focused ? "ios-images" : "images-outline";
                 } else if (route.name === "Post") {
                   iconName = focused ? "ios-chatbox" : "ios-chatbox-outline";
                 } else if (route.name === "User") {
                   iconName = focused ? "ios-person" : "ios-person-outline";
                 }
-                return <Ionicons name={iconName} size={size} color={color} />;
+                return <Ionicons name={iconName} size={22} color={color} />;
               },
             })}
             tabBarOptions={{
-              activeTintColor: "tomato",
-              inactiveTintColor: "gray",
+              activeTintColor: "#ff7A00",
+              inactiveTintColor: "#181818",
               style: {
                 alignItems: "center",
                 borderTopWidth: 0.5,
