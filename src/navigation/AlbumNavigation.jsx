@@ -13,6 +13,22 @@ export function AlbumNavigation(props) {
         initialParams={{
           user: props.route.params.user,
         }}
+        options={{
+          // headerLeft: () => (
+          //   <TouchableOpacity
+          //     onPress={() => navigation.navigate("Album")}
+          //     style={UserNavigationStyleContextual.container}
+          //   >
+          //     <Ionicons name={"ios-arrow-back"} size={30} color={"#fff"} />
+          //   </TouchableOpacity>
+          // ),
+          headerStyle: {
+            backgroundColor: "#ff7A00",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+          },
+        }}
       />
     </Stack.Navigator>
   );
