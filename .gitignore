@@ -14,6 +14,7 @@ package-lock.json
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+.expo
 
 # Xcode
 build/
