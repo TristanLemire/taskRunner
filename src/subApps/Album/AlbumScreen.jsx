@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   FlatList,
-  SafeAreaView,
   TouchableOpacity,
   View
 } from "react-native";
@@ -23,21 +22,17 @@ export function AlbumScreen(props) {
   ]);
   
   return (
-    <>
-      <SafeAreaView>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center",padding: 20 }}>
-          <FlatList
-            data={albums}
-            renderItem={({ item }) =>
-              <TouchableOpacity
-                style={{ flex: 1, flexDirection: "row",justifyContent: "space-between",flexWrap: "wrap"}}
-              >
-                <AlbumItem />
-              </TouchableOpacity>
-            }
-          />
-        </View>
-      </SafeAreaView>
-    </>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center",padding: 20 }}>
+      <FlatList
+        data={albums}
+        renderItem={({ item }) =>
+          <TouchableOpacity
+            style={{ flex: 1, flexDirection: "row", flexWrap: "wrap"}}
+          >
+            <AlbumItem />
+          </TouchableOpacity>
+        }
+      />
+    </View>
   );
 }
