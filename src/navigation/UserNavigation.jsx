@@ -10,7 +10,10 @@ export function UserNavigation(props) {
       <Stack.Screen
         name="User"
         component={UserScreen}
-        initialParams={{ onChange: props.route.params.onChange }}
+        initialParams={{
+          onChange: props.route.params.onChange,
+          user: props.route.params.user,
+        }}
       />
     </Stack.Navigator>
   );
