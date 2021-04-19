@@ -12,17 +12,18 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [user, setUser] = useState(false);
-  const [test, settest] = useState(null);
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((json) => setUsers(json));
   }, []);
 
   const onChange = (value) => {
     setUser(value);
   };
+
   return (
     <>
       {user ? (
@@ -69,7 +70,7 @@ export default function App() {
           </Tab.Navigator>
         </NavigationContainer>
       ) : (
-        <HomeScreen setUser={setUser} />
+        <HomeScreen setUser={setUser} users={users} />
       )}
     </>
   );

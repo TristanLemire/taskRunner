@@ -1,16 +1,50 @@
-import * as React from "react";
-import { Text, View, Button } from "react-native";
+import React from "react";
+import {
+  Text,
+  ScrollView,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from "react-native";
 
 export function HomeScreen(props) {
+  const HomeScreenContextual = HomeScreenStyle();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-      <Button
-        onPress={() => props.setUser(true)}
-        title="Select user"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
-    </View>
+    <>
+      {props.users !== null && (
+        <SafeAreaView>
+          <ScrollView>
+            <Text>Choose a user</Text>
+            {console.log(props.users)}
+            <FlatList
+              data={props.users}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => props.setUser(item)}
+                  style={HomeScreenContextual.container}
+                >
+                  <View>
+                    <Text>{item.name}</Text>
+                    <Text>{item.email}</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      )}
+    </>
   );
 }
+
+const HomeScreenStyle = () =>
+  StyleSheet.create({
+    container: {
+      margin: 8,
+      padding: 8,
+      borderWidth: 1,
+      borderColor: "black",
+    },
+  });
