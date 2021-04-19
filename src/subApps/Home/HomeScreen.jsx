@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 
+import { MiniProfile } from "./Components/MiniProfile";
+
 export function HomeScreen(props) {
   const HomeScreenContextual = HomeScreenStyle();
   return (
@@ -25,10 +27,7 @@ export function HomeScreen(props) {
                   onPress={() => props.setUser(item)}
                   style={HomeScreenContextual.container}
                 >
-                  <View>
-                    <Text>{item.name}</Text>
-                    <Text>{item.email}</Text>
-                  </View>
+                  <MiniProfile item={item} ></MiniProfile>
                 </TouchableOpacity>
               )}
             />

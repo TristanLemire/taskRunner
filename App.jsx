@@ -36,20 +36,18 @@ export default function App() {
                 if (route.name === "Todo") {
                   iconName = "ios-list";
                 } else if (route.name === "Album") {
-                  iconName = focused
-                    ? "ios-albums-sharp"
-                    : "ios-albums-outline";
+                  iconName = focused ? "ios-images" : "images-outline";
                 } else if (route.name === "Post") {
                   iconName = focused ? "ios-chatbox" : "ios-chatbox-outline";
                 } else if (route.name === "User") {
                   iconName = focused ? "ios-person" : "ios-person-outline";
                 }
-                return <Ionicons name={iconName} size={size} color={color} />;
+                return <Ionicons name={iconName} size={22} color={color} />;
               },
             })}
             tabBarOptions={{
-              activeTintColor: "tomato",
-              inactiveTintColor: "gray",
+              activeTintColor: "#ff7A00",
+              inactiveTintColor: "#181818",
               style: {
                 alignItems: "center",
                 borderTopWidth: 0.5,
@@ -62,11 +60,23 @@ export default function App() {
             <Tab.Screen
               name="User"
               component={UserNavigation}
-              initialParams={{ onChange: onChange }}
+              initialParams={{ onChange: onChange, user: user }}
             />
-            <Tab.Screen name="Album" component={AlbumNavigation} />
-            <Tab.Screen name="Post" component={PostNavigation} />
-            <Tab.Screen name="Todo" component={TodoNavigation} />
+            <Tab.Screen
+              name="Album"
+              component={AlbumNavigation}
+              initialParams={{ user: user }}
+            />
+            <Tab.Screen
+              name="Post"
+              component={PostNavigation}
+              initialParams={{ user: user }}
+            />
+            <Tab.Screen
+              name="Todo"
+              component={TodoNavigation}
+              initialParams={{ user: user }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       ) : (
