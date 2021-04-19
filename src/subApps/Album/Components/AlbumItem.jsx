@@ -4,7 +4,8 @@ import {Image, Text, View} from "react-native";
 export function AlbumItem() {
   return (
     <View style={{
-      marginBottom: 20
+      marginBottom: 20,
+      backgroundColor: "#e0e0e0"
       }}
     >
       <Image
@@ -15,7 +16,13 @@ export function AlbumItem() {
           resizeMode: 'cover',
         }}
       />
-      <Text>Favoris</Text>
+      <Text
+        style={{
+          paddingTop: 10,
+          paddingBottom: 10,
+          paddingLeft: 8
+        }}
+      >Favoris</Text>
     </View>
   );
 }
