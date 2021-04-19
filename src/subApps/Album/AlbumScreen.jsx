@@ -1,10 +1,24 @@
 import * as React from "react";
-import { Text, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  View
+} from "react-native";
+import {AlbumItem} from "./Components/AlbumItem";
 
 export function AlbumScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>TODO!</Text>
-    </View>
+    <>
+      <SafeAreaView>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center",padding: 20 }}>
+          <View style={{ flex: 1, flexDirection: "row",justifyContent: "space-between",flexWrap: "wrap"}}>
+            <AlbumItem />
+            <AlbumItem />
+            <AlbumItem />
+          </View>
+        </View>
+      </SafeAreaView>
+    </>
   );
 }
