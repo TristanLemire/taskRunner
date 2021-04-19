@@ -42,7 +42,7 @@ export default function App() {
                 } else if (route.name === "User") {
                   iconName = focused ? "ios-person" : "ios-person-outline";
                 }
-                return <Ionicons name={iconName} size={size} color={color} />;
+                return <Ionicons name={iconName} size={22} color={color} />;
               },
             })}
             tabBarOptions={{

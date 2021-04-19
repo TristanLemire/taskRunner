@@ -24,7 +24,7 @@ export function UserNavigation(props) {
               onPress={() => props.route.params.onChange(null)}
               style={UserNavigationStyleContextual.container}
             >
-              <Ionicons name={"ios-exit-outline"} size={30} color={"#fff"} />
+              <Ionicons name={"ios-exit-outline"} size={25} color={"#fff"} />
             </TouchableOpacity>
           ),
           title: `${props.route.params.user.name}`,
