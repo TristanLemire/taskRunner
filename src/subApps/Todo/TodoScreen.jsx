@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   addIcon : {
-    color: '#FF7A00'
+    color: "#FF7A00"
   },
 
   addButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 0,
   }, 
   buttonContainer:{
-    position: 'relative',
+    position: "relative",
     right: "10px",
     bottom: "5px",
   }

@@ -1,20 +1,28 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\pierr\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  /usr/local/bin/node /usr/local/bin/yarn start
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\wamp64\bin\php\php7.4.9;C:\composer;C:\Program Files\Symfony;C:\Users\pierr\AppData\Local\Microsoft\WindowsApps;C:\Users\pierr\AppData\Local\atom\bin;C:\Users\pierr\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\MongoDB\Server\4.2\bin;C:\Program Files\heroku\bin;C:\Users\pierr\AppData\Local\GitHubDesktop\bin;C:\Users\pierr\.dotnet\tools;C:\Users\pierr\AppData\Local\Microsoft\WindowsApps;C:\Users\pierr\AppData\Roaming\npm;C:\Users\pierr\AppData\Roaming\Composer\vendor\bin
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  14.15.4
+  14.4.0
 
 Platform: 
-  win32 x64
+  linux x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\pierr\Documents\HETIC_WEB3\Solution-mobile\taskRunner\node_modules\.bin\expo'
+  SyntaxError: Unknown token: { line: 1, col: 0, type: 'INVALID', value: undefined } 1:0 in /usr/local/share/.yarnrc
+      at Parser.unexpected (/usr/local/lib/node_modules/yarn/lib/cli.js:64333:11)
+      at Parser.parse (/usr/local/lib/node_modules/yarn/lib/cli.js:64464:14)
+      at parse (/usr/local/lib/node_modules/yarn/lib/cli.js:64538:21)
+      at module.exports.exports.default (/usr/local/lib/node_modules/yarn/lib/cli.js:64100:96)
+      at YarnRegistry.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:95835:64)
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {

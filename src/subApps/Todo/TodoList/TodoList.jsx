@@ -24,15 +24,15 @@ return (
 const styles = StyleSheet.create({
     viewList : {
         width: "100%",
-        height: '4em',
+        height: "4em",
     },
     task:{
         height: "100%",
         width: "100%",
-        backgroundColor: '#FFFFFF',
-        borderBottomColor: '#DDDDDD',
+        backgroundColor: "#FFFFFF",
+        borderBottomColor: "#DDDDDD",
         borderBottomWidth: 1, 
-        borderTopColor: '#DDDDDD',
+        borderTopColor: "#DDDDDD",
         borderTopWidth: 1,
         marginLeft: 0,
         padding: "1.125em"
