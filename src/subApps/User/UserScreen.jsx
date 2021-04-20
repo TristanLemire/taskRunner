@@ -1,36 +1,59 @@
 import * as React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
-import MapView from 'react-native-maps';
+import { Text, View, StyleSheet } from "react-native";
+import MapView from "react-native-maps";
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const UserScreen = (props) => {
-  const lat = parseInt(props.route.params.user.address.geo.lat, 10);
-  const lng = parseInt(props.route.params.user.address.geo.lng, 10);
+  const user = props.route.params.user;
+  const lat = parseInt(user.address.geo.lat, 10);
+  const lng = parseInt(user.address.geo.lng, 10);
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#ff7A00"}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ff7A00",
+      }}
+    >
       <View style={styles.username}>
         <Avatar
           rounded
           containerStyle={{ backgroundColor: "#BDBDBD" }}
           size="large"
+          source={{ uri: user.image }}
         />
-        <Text>{props.route.params.user.username}</Text>
+        <Text>{user.username}</Text>
       </View>
 
       <Text>Personnal Info</Text>
       <View style={styles.userInfo}>
-        <Text><Ionicons name="mail-outline" size={22} color="#ff7A00" />{props.route.params.user.email}</Text>
-        <Text><Ionicons name="location-outline" size={22} color="#ff7A00" />{props.route.params.user.address.street} {props.route.params.user.address.suite} {props.route.params.user.address.city} {props.route.params.user.address.zipcode}</Text>
-        <Text><Ionicons name="phone-portrait-outline" size={22} color="#ff7A00" />{props.route.params.user.phone}</Text>
-        <Text><Ionicons name="globe-outline" size={22} color="#ff7A00" />{props.route.params.user.website}</Text>
+        <Text>
+          <Ionicons name="mail-outline" size={22} color="#ff7A00" />
+          {user.email}
+        </Text>
+        <Text>
+          <Ionicons name="location-outline" size={22} color="#ff7A00" />
+          {user.address.street} {user.address.suite} {user.address.city}{" "}
+          {user.address.zipcode}
+        </Text>
+        <Text>
+          <Ionicons name="phone-portrait-outline" size={22} color="#ff7A00" />
+          {user.phone}
+        </Text>
+        <Text>
+          <Ionicons name="globe-outline" size={22} color="#ff7A00" />
+          {user.website}
+        </Text>
       </View>
 
       <Text>Company</Text>
       <View style={styles.userCompany}>
-        <Text>{props.route.params.user.company.name}</Text>
-        <Text>{props.route.params.user.company.catchPhrase}</Text>
-        <Text>{props.route.params.user.company.bs}</Text>
+        <Text>{user.company.name}</Text>
+        <Text>{user.company.catchPhrase}</Text>
+        <Text>{user.company.bs}</Text>
       </View>
 
       <MapView
@@ -43,7 +66,7 @@ export const UserScreen = (props) => {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   userInfo: {
@@ -56,6 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     backgroundColor: "#ffffff",
-    borderRadius: 8
-  }
-})
+    borderRadius: 8,
+  },
+});
