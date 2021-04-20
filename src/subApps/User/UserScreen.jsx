@@ -18,24 +18,17 @@ export const UserScreen = (props) => {
           email,
           phone,
           website,
-          company: {
-            name,
-            catchPhrase,
-            bs,
-          },
+          company: { name, catchPhrase, bs },
           address: {
             street,
             suite,
             city,
             zipcode,
-            geo: {
-              lat,
-              lng,
-            }
-          }
-        }
-      }
-    }
+            geo: { lat, lng },
+          },
+        },
+      },
+    },
   } = props;
 
   const latitude = parseInt(lat, 10);
@@ -46,11 +39,11 @@ export const UserScreen = (props) => {
     <ScrollView style={UserScreenStyleContextual.page}>
       <LinearGradient
         // Background Linear Gradient
-        colors={['#FF7A00', '#FFBC7E']}
+        colors={["#FF7A00", "#FFBC7E"]}
         style={UserScreenStyleContextual.background}
         start={{ x: 0, y: 0 }}
-        end={ { x: 0, y: 1 }}
-        />
+        end={{ x: 0, y: 1 }}
+      />
       <View style={UserScreenStyleContextual.headerProfile}>
         <Avatar
           rounded
@@ -132,8 +125,9 @@ export const UserScreen = (props) => {
             longitude: longitude,
             latitudeDelta: 20,
             longitudeDelta: 20,
-          }}>
-          <Marker coordinate={{ latitude: latitude, longitude: longitude}} />
+          }}
+        >
+          <Marker coordinate={{ latitude: latitude, longitude: longitude }} />
         </MapView>
       </View>
     </ScrollView>
