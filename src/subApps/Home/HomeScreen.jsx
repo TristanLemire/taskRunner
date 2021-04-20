@@ -19,7 +19,6 @@ export function HomeScreen(props) {
         <SafeAreaView>
           <ScrollView>
             <Text>Choose a user</Text>
-            {console.log(props.users)}
             <FlatList
               data={props.users}
               renderItem={({ item }) => (
