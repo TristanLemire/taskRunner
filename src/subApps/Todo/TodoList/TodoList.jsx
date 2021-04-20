@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     task:{
         height: "100%",
         width: "100%",
+        backgroundColor: '#FFFFFF',
         borderBottomColor: '#DDDDDD',
         borderBottomWidth: 1, 
         borderTopColor: '#DDDDDD',

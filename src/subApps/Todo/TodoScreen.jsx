@@ -28,40 +28,42 @@ export function TodoScreen(props) {
           })
         }
       </ScrollView>
-     
-      <Button
-        buttonStyle={styles.addButton}
-        icon={
-          <Icon
-            name="pluscircle"
-            size={30}
-            color="white"
-            style={styles.addIcon}
-          />
-        }
-        onPress={postTodo}
-      />
+        
+      <View style={styles.buttonContainer}>
+        <Button
+          buttonStyle={styles.addButton}
+          icon={
+            <Icon
+              name="pluscircle"
+              size={40}
+              color="white"
+              style={styles.addIcon}
+            />
+          }
+          onPress={postTodo}
+        />
     </View>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   todoView: {
     flex: 1,
-    justifyContent: "center", 
     alignItems: "flex-end",
-    backgroundColor: "transparent",
-  },
-  scrollView: {
-    height: '5em',
-    alignItems: 'flex-end'
+    backgroundColor: "#FFFFFF",
   },
   addIcon : {
     color: '#FF7A00'
   },
 
   addButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#FFFFFF',
     borderWidth: 0,
+  }, 
+  buttonContainer:{
+    position: 'relative',
+    right: "10px",
+    bottom: "5px",
   }
 });
