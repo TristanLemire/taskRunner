@@ -6,20 +6,27 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  View,
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
+import { ErrorMessage } from "../../components/error";
 
 export function HomeScreen(props) {
   const HomeScreenContextual = HomeScreenStyle();
   return (
     <>
-      {props.users !== null && (
-        <SafeAreaView>
-          <ScrollView>
-            <Text>Choose a user</Text>
-            {console.log(props.users)}
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView>
+          {props.error && (
+            <ErrorMessage
+              message={
+                "Veuillez nous pardonner une erreur a du se produire de notre coter, veuillez réessayer."
+              }
+              retry={props.retry}
+            />
+          )}
+          <Text>Choose a user</Text>
+          {props.users !== null && (
             <FlatList
               data={props.users}
               renderItem={({ item }) => (
@@ -27,13 +34,13 @@ export function HomeScreen(props) {
                   onPress={() => props.setUser(item)}
                   style={HomeScreenContextual.container}
                 >
-                  <MiniProfile item={item} ></MiniProfile>
+                  <MiniProfile item={item}></MiniProfile>
                 </TouchableOpacity>
               )}
             />
-          </ScrollView>
-        </SafeAreaView>
-      )}
+          )}
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
