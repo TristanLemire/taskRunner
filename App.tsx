@@ -47,7 +47,7 @@ export default function App() {
   const [users, setUsers] = useState<User[] | null>(null);
   const [error, setError] = useState<boolean>(false);
   // ignore les warnings
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   const onChange = (user: User) => {
     setUser(user);

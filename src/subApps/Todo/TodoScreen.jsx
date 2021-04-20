@@ -17,7 +17,26 @@ export function TodoScreen(props) {
       .then((json) => setTodos(json));
   };
 
+  const validationTodo = () => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        userId: todos.userId,
+        id: todos.id,
+        title: todos.title,
+        completed: setChecked(false)
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+  })
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+
+  }
+
   useEffect(() => {
+    validationTodo();
     postTodo();
   }, []);
 
@@ -31,10 +50,11 @@ export function TodoScreen(props) {
             <TouchableOpacity
               style={styles.checkbox}
               onPress={() => {
-                console.log(
-                  "tache fini: PA ici tu ferra un call api pour dire que cette tache est valide ou invalide si elle est deja validé",
-                  postTodo()
-                );
+                // console.log(
+                //   "tache fini: PA ici tu ferra un call api pour dire que cette tache est valide ou invalide si elle est deja validé",
+                //   postTodo()
+                // );
+                validationTodo()
               }}
             >
               <Ionicons

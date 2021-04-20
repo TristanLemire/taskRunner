@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -33,14 +33,14 @@ export const UserScreen = (props) => {
         <Text>{props.route.params.user.company.bs}</Text>
       </View>
 
-      <MapView
+      {/* <MapView
         initialRegion={{
           latitude: lat,
           longitude: lng,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      /> */}
     </View>
   );
 }
