@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  FlatList,
+  FlatList, StyleSheet,
   TouchableOpacity,
   View
 } from "react-native";
@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 export function AlbumScreen(props) {
   const [album, setAlbum] = useState(null);
   const [albums, setAlbums] = useState(null);
+  
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/albums/1/photos")
     .then((response) => response.json())
@@ -21,16 +22,14 @@ export function AlbumScreen(props) {
   };
   
   return (
-    <View
-      style={{ flex: 1, padding: 20  }}
-    >
+    <View style={styles.cardContainer}>
       <FlatList
         data={albums}
         numColumns={2}
         renderItem={({ item }) =>
           <TouchableOpacity
             onPress={() => onChange(album)}
-            style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly" }}
+            style={styles.cardRow}
           >
              <AlbumItem
              url={item.url}
@@ -42,3 +41,16 @@ export function AlbumScreen(props) {
     </View>
   );
 }
+
+styles = StyleSheet.create ({
+  cardContainer: {
+    flex: 1,
+    padding: 20
+  },
+  cardRow: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  }
+});
+

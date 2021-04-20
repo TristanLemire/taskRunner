@@ -1,28 +1,34 @@
 import * as React from "react";
-import {Image, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 
 export function AlbumItem(props) {
   return (
-    <View style={{
-      marginBottom: 20,
-      backgroundColor: "#e0e0e0"
-      }}
-    >
+    <View style={styles.cardBody}>
       <Image
         source={{uri: props.url}}
-        style={{
-          width: 130,
-          height: 100,
-          resizeMode: 'cover',
-        }}
+        style={styles.cardImage}
       />
-      <Text
-        style={{
-          paddingTop: 10,
-          paddingBottom: 10,
-          paddingLeft: 8
-        }}
-      >{props.title}</Text>
+      <Text style={styles.cardTitle}>
+        {props.title}
+      </Text>
     </View>
   );
 }
+
+styles = StyleSheet.create ({
+  cardBody: {
+    marginBottom: 20,
+    backgroundColor: "#e0e0e0"
+  },
+  cardImage: {
+    width: 130,
+    height: 100,
+    resizeMode: 'cover',
+  },
+  cardTitle: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 8
+  }
+});
+
