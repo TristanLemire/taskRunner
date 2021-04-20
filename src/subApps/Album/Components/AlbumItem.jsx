@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Image, Text, View} from "react-native";
 
-export function AlbumItem() {
+export function AlbumItem(props) {
   return (
     <View style={{
       marginBottom: 20,
@@ -9,9 +9,9 @@ export function AlbumItem() {
       }}
     >
       <Image
-        source={{uri: "https://picsum.photos/500/500"}}
+        source={{uri: props.url}}
         style={{
-          width: 140,
+          width: 130,
           height: 100,
           resizeMode: 'cover',
         }}
@@ -22,7 +22,7 @@ export function AlbumItem() {
           paddingBottom: 10,
           paddingLeft: 8
         }}
-      >Favoris</Text>
+      >{props.title}</Text>
     </View>
   );
 }
