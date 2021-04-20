@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
-  FlatList, StyleSheet,
+  FlatList,
+  StyleSheet,
   TouchableOpacity,
   View
 } from "react-native";
@@ -20,16 +21,17 @@ export function AlbumScreen(props) {
   const onChange = (value) => {
     setAlbum(value);
   };
+  const AlbumContextual = AlbumStyle();
   
   return (
-    <View style={styles.cardContainer}>
+    <View style={AlbumContextual.cardContainer}>
       <FlatList
         data={albums}
         numColumns={2}
         renderItem={({ item }) =>
           <TouchableOpacity
             onPress={() => onChange(album)}
-            style={styles.cardRow}
+            style={AlbumContextual.cardRow}
           >
              <AlbumItem
              url={item.url}
@@ -42,15 +44,18 @@ export function AlbumScreen(props) {
   );
 }
 
-styles = StyleSheet.create ({
-  cardContainer: {
-    flex: 1,
-    padding: 20
-  },
-  cardRow: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly"
-  }
-});
+const AlbumStyle = () =>
+  StyleSheet.create ({
+    cardContainer: {
+      flex: 1,
+      padding: 10
+    },
+    cardRow: {
+      flex: 1,
+      margin: 15,
+      flexDirection: "row",
+      justifyContent: "space-between"
+    }
+  });
+
 
