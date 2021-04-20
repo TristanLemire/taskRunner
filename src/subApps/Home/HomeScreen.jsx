@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   ScrollView,
@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
@@ -15,7 +16,18 @@ import { SearchBar } from "react-native-elements";
 
 export function HomeScreen(props) {
   const HomeScreenContextual = HomeScreenStyle();
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState(null);
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    setUsers(props.users);
+  }, [props.users]);
+
+  const onChangeSearch = (newVal) => {
+    newVal === null || newVal === ""
+      ? setUsers(props.users)
+      : setUsers(props.users.filter((item) => item.name.includes(newVal)));
+  };
 
   return (
     <>
@@ -31,18 +43,21 @@ export function HomeScreen(props) {
           )}
           <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
           <SearchBar
-            platform="android"
+            platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme
-            onChangeText={(newVal) => setValue(newVal)}
+            onChangeText={(newVal) => {
+              setValue(newVal);
+              onChangeSearch(newVal);
+            }}
             placeholder="Chercher un utilisateur ..."
             placeholderTextColor="#888"
             round
-            onClearText={() => console.log(onClearText())}
+            onClearText={() => setUsers(props.users)}
             value={value}
           />
-          {props.users !== null && (
+          {users !== null && (
             <FlatList
-              data={props.users}
+              data={users}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => props.setUser(item)}
