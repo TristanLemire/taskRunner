@@ -13,7 +13,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [user, setUser] = useState(false);
   const [users, setUsers] = useState(null);
-  const [albums, setAlbums] = useState(null);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -21,13 +20,6 @@ export default function App() {
       .then((json) => setUsers(json));
   }, []);
   
-  
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/albums/1/photos")
-    .then((response) => response.json())
-    .then((json) => setAlbums(json));
-  }, []);
-
   const onChange = (value) => {
     setUser(value);
   };
@@ -73,7 +65,7 @@ export default function App() {
             <Tab.Screen
               name="Album"
               component={AlbumNavigation}
-              initialParams={{ user: albums }}
+              initialParams={{ user: user }}
             />
             <Tab.Screen
               name="Post"
