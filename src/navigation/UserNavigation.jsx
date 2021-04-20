@@ -4,12 +4,10 @@ import { UserScreen } from "../subApps/User/UserScreen";
 import { StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import { Consumer } from "../../App";
 const Stack = createStackNavigator();
 
 export function UserNavigation(props) {
-  const navigation = useNavigation();
   const UserNavigationStyleContextual = UserNavigationStyle();
 
   return (
