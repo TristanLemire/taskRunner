@@ -10,7 +10,10 @@ export function AlbumItem(props) {
         source={{uri:`https://picsum.photos/id/${props.id}/200/300`}}
         style={AlbumContextual.cardImage}
       />
-      <Text numberOfLines={1} style={AlbumContextual.cardTitle}>
+      <Text
+        numberOfLines={1}
+        style={AlbumContextual.cardTitle}
+      >
         {props.title}
       </Text>
     </View>
@@ -24,7 +27,7 @@ const AlbumStyle = () =>
       backgroundColor: "#e0e0e0"
     },
     cardImage: {
-      width: 140,
+      width: 150,
       height: 100,
       resizeMode: 'cover',
     },
