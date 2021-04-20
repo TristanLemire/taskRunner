@@ -4,9 +4,9 @@ import MapView from "react-native-maps";
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 
-const windowHeight = Dimensions.get('window').height;
+const windowHeight = Dimensions.get("window").height;
 
 export const UserScreen = (props) => {
   const {
@@ -114,14 +114,22 @@ export const UserScreen = (props) => {
           <Text style={UserScreenStyleContextual.compagnyBs}>{bs}</Text>
         </View>
       </View>
-      <MapView style={{ flex: 1, width: "100%" }}
-        initialRegion={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+      <View style={UserScreenStyleContextual.sectionMap}>
+        <Text style={UserScreenStyleContextual.titleSection}>
+          Votre Position
+        </Text>
+        <MapView
+          style={{ height: 200, width: "100%" }}
+          initialRegion={{
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          scrollEnabled={false}
+          zoomEnabled={false}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -147,6 +155,10 @@ const UserScreenStyle = () =>
       alignItems: "center",
       margin: 16,
       flex: 1,
+    },
+    sectionMap: {
+      alignItems: "center",
+      marginTop: 16,
     },
     titleSection: {
       marginBottom: 16,
@@ -201,7 +213,7 @@ const UserScreenStyle = () =>
       flexWrap: "wrap",
     },
     background: {
-      position: 'absolute',
+      position: "absolute",
       left: 0,
       right: 0,
       top: 0,
