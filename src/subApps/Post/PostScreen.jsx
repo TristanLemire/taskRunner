@@ -3,6 +3,8 @@ import { TouchableOpacity, View, StyleSheet } from "react-native";
 
 import { MiniPost } from "./Components/MiniPost";
 
+import { Post } from "./Components/Post";
+
 export function PostScreen(props) {
   return (
     <View style={styles.page}>
