@@ -1,18 +1,20 @@
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 
-import { Post } from "./Components/Post"
+import { MiniPost } from "./Components/MiniPost";
 
 export function PostScreen(props) {
   return (
     <View style={styles.page}>
-
-      <Post>
-
-      </Post>
-
+      <TouchableOpacity
+        // onPress={() => props.setUser(post)}
+        style={styles.container}
+      >
+      <MiniPost 
+      // post={post}
+      ></MiniPost>
+      </TouchableOpacity>
     </View>
-
   );
 }
 
