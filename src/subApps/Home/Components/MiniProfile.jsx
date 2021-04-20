@@ -1,8 +1,9 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
 export function MiniProfile(props) {
+	const MiniProfileContextual = MiniProfileStyle();
 	const { item } = props;
 
 	return (
@@ -14,12 +15,27 @@ export function MiniProfile(props) {
 			/>
 			<ListItem.Content>
 				<ListItem.Title>
-					<Text>{item.name}</Text>
+					<Text style={MiniProfileContextual.userName}>{item.name}</Text>
 				</ListItem.Title>
-				<ListItem.Subtitle>
-					<Text>{item.email}</Text>
+				<ListItem.Subtitle style={MiniProfileContextual.subtitle}>
+					<Text style={MiniProfileContextual.userEmail}>{item.email}</Text>
 				</ListItem.Subtitle>
 			</ListItem.Content>
 		</ListItem>
 	);
 }
+
+const MiniProfileStyle = () =>
+	StyleSheet.create({
+		userName: {
+			color: "#20232a",
+			fontSize: 15,
+			fontWeight: "bold",
+		},
+		subtitle: {
+paddingTop: 8,
+		},
+		userEmail: {
+			fontSize: 12,
+		},
+	});
