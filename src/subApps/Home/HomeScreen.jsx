@@ -24,7 +24,7 @@ export function HomeScreen(props) {
           {props.error && (
             <ErrorMessage
               message={
-                "Veuillez nous pardonner une erreur a du se produire de notre coter, veuillez réessayer."
+                "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
               }
               retry={props.retry}
             />
