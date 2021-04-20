@@ -27,14 +27,7 @@ export function AlbumNavigation(props) {
         name="Photo"
         component={PhotoScreen}
         options={{
-          // headerLeft: () => (
-          //   <TouchableOpacity
-          //     onPress={() => navigation.navigate("Album")}
-          //     style={UserNavigationStyleContextual.container}
-          //   >
-          //     <Ionicons name={"ios-arrow-back"} size={30} color={"#fff"} />
-          //   </TouchableOpacity>
-          // ),
+          headerTintColor: "white",
           headerStyle: {
             backgroundColor: "#ff7A00",
           },
