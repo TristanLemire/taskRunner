@@ -11,7 +11,7 @@ export function AlbumItem() {
       <Image
         source={{uri: "https://picsum.photos/500/500"}}
         style={{
-          width: 130,
+          width: 140,
           height: 100,
           resizeMode: 'cover',
         }}

@@ -22,14 +22,17 @@ export function AlbumScreen(props) {
   ]);
   
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center",padding: 20 }}>
+    <View
+      style={{ flex: 1, padding: 20  }}
+    >
       <FlatList
         data={albums}
+        numColumns={2}
         renderItem={({ item }) =>
           <TouchableOpacity
-            style={{ flex: 1, flexDirection: "row", flexWrap: "wrap"}}
+            style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly" }}
           >
-            <AlbumItem />
+             <AlbumItem />
           </TouchableOpacity>
         }
       />
