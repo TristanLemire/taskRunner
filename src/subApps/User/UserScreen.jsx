@@ -4,6 +4,9 @@ import MapView from "react-native-maps";
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
+import { LinearGradient } from 'expo-linear-gradient';
+
+const windowHeight = Dimensions.get('window').height;
 
 export const UserScreen = (props) => {
   const {
@@ -34,6 +37,13 @@ export const UserScreen = (props) => {
   const UserScreenStyleContextual = UserScreenStyle();
   return (
     <ScrollView style={UserScreenStyleContextual.page}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={['#FF7A00', '#FFBC7E']}
+        style={UserScreenStyleContextual.background}
+        start={{ x: 0, y: 0 }}
+        end={ { x: 0, y: 1 }}
+        />
       <View style={UserScreenStyleContextual.headerProfile}>
         <Avatar
           rounded
@@ -104,7 +114,7 @@ export const UserScreen = (props) => {
           <Text style={UserScreenStyleContextual.compagnyBs}>{bs}</Text>
         </View>
       </View>
-      <MapView
+      <MapView style={{ flex: 1, width: "100%" }}
         initialRegion={{
           latitude: latitude,
           longitude: longitude,
@@ -120,7 +130,6 @@ const UserScreenStyle = () =>
   StyleSheet.create({
     page: {
       flex: 1,
-      backgroundColor: "#ff7A00",
     },
     headerProfile: {
       flex: 0.5,
@@ -190,5 +199,12 @@ const UserScreenStyle = () =>
     text: {
       flex: 1,
       flexWrap: "wrap",
+    },
+    background: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      height: windowHeight,
     },
   });
