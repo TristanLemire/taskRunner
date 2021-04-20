@@ -1,62 +1,56 @@
 import * as React from "react";
-import {
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from "react-native";
-import {AlbumItem} from "./Components/AlbumItem";
-import {useEffect, useState} from "react";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import { AlbumItem } from "./Components/AlbumItem";
+import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export function AlbumScreen(props) {
   const [album, setAlbum] = useState(null);
   const [albums, setAlbums] = useState(null);
-  
+  const navigation = useNavigation();
+
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/albums?userId=${props.route.params.user.id}`)
-    .then((response) => response.json())
-    .then((json) => setAlbums(json));
+    fetch(
+      `https://jsonplaceholder.typicode.com/albums?userId=${props.route.params.user.id}`
+    )
+      .then((response) => response.json())
+      .then((json) => setAlbums(json));
   }, []);
-  
+
   const onChange = (value) => {
     setAlbum(value);
   };
   const AlbumContextual = AlbumStyle();
-  
+
   return (
     <View style={AlbumContextual.cardContainer}>
       <FlatList
         data={albums}
         numColumns={2}
-        renderItem={({ item }) =>
+        renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => onChange(album)}
+            onPress={() => navigation.navigate("Photo", { albumId: item.id })}
             style={AlbumContextual.cardRow}
           >
-             <AlbumItem
-               id={item.id}
-               title={item.title}
-             />
+            <AlbumItem id={item.id} title={item.title} />
           </TouchableOpacity>
-        }
+        )}
       />
     </View>
   );
 }
 
 const AlbumStyle = () =>
-  StyleSheet.create ({
+  StyleSheet.create({
     cardContainer: {
       flex: 1,
-      padding: 10
+      padding: 10,
     },
     cardRow: {
       flex: 1,
       marginLeft: 10,
       marginRight: 10,
       flexDirection: "row",
-      justifyContent: "space-between"
-    }
+      justifyContent: "space-between",
+    },
   });
-
-
