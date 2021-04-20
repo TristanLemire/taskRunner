@@ -14,21 +14,28 @@ export const UserScreen = (props) => {
       params: {
         user: {
           username,
+          image,
           email,
           phone,
           website,
-          image,
-          company: { name, catchPhrase, bs },
+          company: {
+            name,
+            catchPhrase,
+            bs,
+          },
           address: {
             street,
             suite,
             city,
             zipcode,
-            geo: { lat, lng },
-          },
-        },
-      },
-    },
+            geo: {
+              lat,
+              lng,
+            }
+          }
+        }
+      }
+    }
   } = props;
 
   const latitude = parseInt(lat, 10);
