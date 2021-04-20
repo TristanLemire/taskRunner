@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, Button } from "react-native";
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 
 export function UserScreen(props) {
   const lat = parseInt(props.route.params.user.address.geo.lat, 10);
@@ -30,14 +30,14 @@ export function UserScreen(props) {
         accessibilityLabel="Learn more about this purple button"
       />
       
-      <MapView
+      {/* <MapView
         initialRegion={{
           latitude: lat,
           longitude: lng,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      /> */}
     </View>
   );
 }
