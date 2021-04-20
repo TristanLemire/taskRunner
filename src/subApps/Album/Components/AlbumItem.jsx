@@ -7,7 +7,7 @@ export function AlbumItem(props) {
   return (
     <View style={AlbumContextual.cardBody}>
       <Image
-        source={{uri: props.url}}
+        source={{uri:`https://picsum.photos/id/${props.id}/200/300`}}
         style={AlbumContextual.cardImage}
       />
       <Text numberOfLines={1} style={AlbumContextual.cardTitle}>

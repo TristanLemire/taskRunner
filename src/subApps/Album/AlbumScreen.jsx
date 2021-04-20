@@ -13,7 +13,7 @@ export function AlbumScreen(props) {
   const [albums, setAlbums] = useState(null);
   
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/albums/1/photos")
+    fetch(`https://jsonplaceholder.typicode.com/albums?userId=${props.route.params.user.id}`)
     .then((response) => response.json())
     .then((json) => setAlbums(json));
   }, []);
@@ -34,8 +34,8 @@ export function AlbumScreen(props) {
             style={AlbumContextual.cardRow}
           >
              <AlbumItem
-             url={item.url}
-             title={item.title}
+               id={item.id}
+               title={item.title}
              />
           </TouchableOpacity>
         }
