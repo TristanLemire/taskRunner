@@ -11,15 +11,29 @@ import {
 
 import { MiniProfile } from "./Components/MiniProfile";
 
+import { SearchBar } from "react-native-elements";
+
 export function HomeScreen(props) {
   const HomeScreenContextual = HomeScreenStyle();
+  const [value, setValue] = React.useState("");
+
   return (
     <>
       {props.users !== null && (
         <SafeAreaView>
           <ScrollView>
-            <Text>Choose a user</Text>
+            <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
             {console.log(props.users)}
+            <SearchBar
+              platform="android"
+              lightTheme
+              onChangeText={newVal => setValue(newVal)}
+              placeholder="Chercher un utilisateur ..."
+              placeholderTextColor="#888"
+              round
+              onClearText={() => console.log(onClearText())}
+              value={value}
+            />
             <FlatList
               data={props.users}
               renderItem={({ item }) => (
@@ -40,10 +54,15 @@ export function HomeScreen(props) {
 
 const HomeScreenStyle = () =>
   StyleSheet.create({
+    title: {
+      margin: 16,
+      color: "#20232a",
+      textAlign: "center",
+      fontSize: 30,
+      fontWeight: "bold",
+    },
     container: {
       margin: 8,
       padding: 8,
-      borderWidth: 1,
-      borderColor: "black",
     },
   });
