@@ -38,6 +38,10 @@ export function UserNavigation(props) {
               title: `${props.route.params.user.name}`,
               headerStyle: {
                 backgroundColor: "#ff7A00",
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
               },
               headerTitleStyle: {
                 color: "#fff",
