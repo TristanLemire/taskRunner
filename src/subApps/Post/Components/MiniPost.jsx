@@ -2,8 +2,8 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
 
-export function Post(props) {
-  const style = PostStyle();
+export function MiniPost(props) {
+  const style = MiniPostStyle();
 
   return (
     <ListItem bottomDivider pad={16}>
@@ -23,7 +23,7 @@ export function Post(props) {
   );
 }
 
-const PostStyle = () =>
+const MiniPostStyle = () =>
   StyleSheet.create({
     userName: {
       color: "#20232a",
