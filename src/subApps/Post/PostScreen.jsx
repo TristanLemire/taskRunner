@@ -10,9 +10,9 @@ export function PostScreen(props) {
         // onPress={() => props.setUser(post)}
         style={styles.container}
       >
-      <MiniPost 
-      // post={post}
-      ></MiniPost>
+        <MiniPost
+        // post={post}
+        ></MiniPost>
       </TouchableOpacity>
     </View>
   );
@@ -21,5 +21,18 @@ export function PostScreen(props) {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
+  },
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: "space-evenly",
+    maxHeight: 120,
+  },
+  containerTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  containerText: {
+    fontSize: 14,
   },
 });
