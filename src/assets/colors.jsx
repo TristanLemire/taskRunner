@@ -1,8 +1,8 @@
 export const COLORS = {
   white: "#fff",
-  black: "#171717",
+  black: "#333333",
   grey: "#8D8B8B",
-  brandOrange: "#ff7A00",
-  OrangeSecond: "#FFBC7E",
+  brandOrange: "#FF7A00",
+  OrangeSecond: "#FFBC7F",
   error: "#FF9494",
 };
