@@ -31,7 +31,7 @@ export function HomeScreen(props) {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={HomeScreenContextual.droidSafeArea}>
         <ScrollView>
           {props.error && (
             <ErrorMessage
@@ -87,4 +87,8 @@ const HomeScreenStyle = () =>
       margin: 8,
       padding: 8,
     },
+    droidSafeArea: {
+      flex: 1,
+      paddingTop: Platform.OS === 'android' ? 25 : 0
+  },
   });
