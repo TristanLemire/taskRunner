@@ -1,32 +1,31 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TodoScreen } from "../subApps/Todo/TodoScreen";
+import { COLORS } from "../assets/colors";
 
 const Stack = createStackNavigator();
 
 export function TodoNavigation(props) {
+  const {
+    route: {
+      params: { user },
+    },
+  } = props;
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Todo list"
         component={TodoScreen}
         initialParams={{
-          user: props.route.params.user,
+          user: user,
         }}
         options={{
-          // headerLeft: () => (
-          //   <TouchableOpacity
-          //     onPress={() => navigation.navigate("Album")}
-          //     style={UserNavigationStyleContextual.container}
-          //   >
-          //     <Ionicons name={"ios-arrow-back"} size={30} color={"#fff"} />
-          //   </TouchableOpacity>
-          // ),
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />

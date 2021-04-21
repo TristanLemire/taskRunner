@@ -2,25 +2,32 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PostScreen } from "../subApps/Post/PostScreen";
 import { PostDetailScreen } from "../subApps/Post/PostDetailScreen";
+import { COLORS } from "../assets/colors";
 
 const Stack = createStackNavigator();
 
 export function PostNavigation(props) {
+  const {
+    route: {
+      params: { user },
+    },
+  } = props;
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Post"
         component={PostScreen}
         initialParams={{
-          user: props.route.params.user,
+          user: user,
         }}
         options={{
           headerTitle: "Posts",
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />
@@ -31,10 +38,10 @@ export function PostNavigation(props) {
           headerTitle: "Detail",
           headerTintColor: "white",
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />

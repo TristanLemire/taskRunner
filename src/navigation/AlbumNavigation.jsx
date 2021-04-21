@@ -2,24 +2,31 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AlbumScreen } from "../subApps/Album/AlbumScreen";
 import { PhotoScreen } from "../subApps/Album/PhotoScreen";
+import { COLORS } from "../assets/colors";
 
 const Stack = createStackNavigator();
 
 export function AlbumNavigation(props) {
+  const {
+    route: {
+      params: { user },
+    },
+  } = props;
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Album"
         component={AlbumScreen}
         initialParams={{
-          user: props.route.params.user,
+          user: user,
         }}
         options={{
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />
@@ -29,10 +36,10 @@ export function AlbumNavigation(props) {
         options={{
           headerTintColor: "white",
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />

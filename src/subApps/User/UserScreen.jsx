@@ -6,6 +6,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
+import { COLORS } from "../../assets/colors";
+
 const windowHeight = Dimensions.get("window").height;
 
 export const UserScreen = (props) => {
@@ -34,90 +36,83 @@ export const UserScreen = (props) => {
   const latitude = parseInt(lat, 10);
   const longitude = parseInt(lng, 10);
 
-  const UserScreenStyleContextual = UserScreenStyle();
+  const style = UserScreenStyle();
   return (
-    <ScrollView style={UserScreenStyleContextual.page}>
+    <ScrollView style={style.page}>
       <LinearGradient
-        // Background Linear Gradient
-        colors={["#FF7A00", "#FFBC7E"]}
-        style={UserScreenStyleContextual.background}
+        colors={[COLORS.brandOrange, COLORS.OrangeSecond]}
+        style={style.background}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       />
-      <View style={UserScreenStyleContextual.headerProfile}>
+      <View style={style.headerProfile}>
         <Avatar
           rounded
-          containerStyle={{ backgroundColor: "#BDBDBD" }}
+          containerStyle={{ backgroundColor: COLORS.white }}
           size="large"
           source={{ uri: image }}
         />
-        <Text style={UserScreenStyleContextual.titleName}>{username}</Text>
+        <Text style={style.titleName}>{username}</Text>
       </View>
 
-      <View style={UserScreenStyleContextual.section}>
-        <Text style={UserScreenStyleContextual.titleSection}>
-          Informations personnelles
-        </Text>
+      <View style={style.section}>
+        <Text style={style.titleSection}>Informations personnelles</Text>
 
-        <View style={UserScreenStyleContextual.box}>
-          <View style={UserScreenStyleContextual.textWithIcon}>
+        <View style={style.box}>
+          <View style={style.textWithIcon}>
             <Ionicons
-              style={UserScreenStyleContextual.icon}
+              style={style.icon}
               name="mail-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
-            <Text style={UserScreenStyleContextual.text}>{email}</Text>
+            <Text style={style.text}>{email}</Text>
           </View>
 
-          <View style={UserScreenStyleContextual.textWithIcon}>
+          <View style={style.textWithIcon}>
             <Ionicons
-              style={UserScreenStyleContextual.icon}
+              style={style.icon}
               name="location-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
-            <Text style={UserScreenStyleContextual.text}>
+            <Text style={style.text}>
               {street} {suite} {city} {zipcode}
             </Text>
           </View>
 
-          <View style={UserScreenStyleContextual.textWithIcon}>
+          <View style={style.textWithIcon}>
             <Ionicons
-              style={UserScreenStyleContextual.icon}
+              style={style.icon}
               name="phone-portrait-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
-            <Text style={UserScreenStyleContextual.text}>{phone}</Text>
+            <Text style={style.text}>{phone}</Text>
           </View>
 
-          <View style={UserScreenStyleContextual.textWithIcon}>
+          <View style={style.textWithIcon}>
             <Ionicons
-              style={UserScreenStyleContextual.icon}
+              style={style.icon}
               name="globe-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
-            <Text style={UserScreenStyleContextual.text}>{website}</Text>
+            <Text style={style.text}>{website}</Text>
           </View>
         </View>
       </View>
 
-      <View style={UserScreenStyleContextual.section}>
-        <Text style={UserScreenStyleContextual.titleSection}>Entreprise</Text>
-        <View style={UserScreenStyleContextual.compagny}>
-          <Text style={UserScreenStyleContextual.compagnyTitle}>{name}</Text>
-          <Text style={UserScreenStyleContextual.compagnyInfo}>
-            “{catchPhrase}“
-          </Text>
-          <Text style={UserScreenStyleContextual.compagnyBs}>{bs}</Text>
+      <View style={style.section}>
+        <Text style={style.titleSection}>Entreprise</Text>
+        <View style={style.compagny}>
+          <Text style={style.compagnyTitle}>{name}</Text>
+          <Text style={style.compagnyInfo}>“{catchPhrase}“</Text>
+          <Text style={style.compagnyBs}>{bs}</Text>
         </View>
       </View>
-      <View style={UserScreenStyleContextual.sectionMap}>
-        <Text style={UserScreenStyleContextual.titleSection}>
-          Votre Position
-        </Text>
+      <View style={style.sectionMap}>
+        <Text style={style.titleSection}>Votre Position</Text>
         <MapView
           style={{ height: 200, width: "100%" }}
           initialRegion={{
@@ -165,7 +160,7 @@ const UserScreenStyle = () =>
       textDecorationLine: "underline",
       textTransform: "uppercase",
       fontSize: 16,
-      color: "white",
+      color: COLORS.white,
       fontWeight: "300",
     },
     box: {
@@ -173,13 +168,13 @@ const UserScreenStyle = () =>
       padding: 24,
       paddingBottom: 8,
       justifyContent: "space-between",
-      backgroundColor: "white",
+      backgroundColor: COLORS.white,
       borderRadius: 8,
       width: Dimensions.get("window").width / 1.1,
     },
     compagny: {
       padding: 24,
-      backgroundColor: "white",
+      backgroundColor: COLORS.white,
       borderRadius: 8,
       width: Dimensions.get("window").width / 1.1,
       alignItems: "center",
@@ -188,17 +183,17 @@ const UserScreenStyle = () =>
       marginBottom: 16,
       fontSize: 16,
       fontWeight: "bold",
-      color: "#181818",
+      color: COLORS.black,
     },
     compagnyInfo: {
       marginBottom: 16,
       fontSize: 14,
-      color: "#181818",
+      color: COLORS.black,
       fontStyle: "italic",
     },
     compagnyBs: {
       fontSize: 14,
-      color: "#666666",
+      color: COLORS.grey,
     },
     textWithIcon: {
       flexDirection: "row",

@@ -10,6 +10,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
+import { COLORS } from "../../assets/colors";
 import { MiniComment } from "./Components/MiniComment";
 
 export function PostDetailScreen(props) {
@@ -45,32 +46,34 @@ export function PostDetailScreen(props) {
   return (
     <View style={style.page}>
       <View style={style.postContainer}>
-        <Text style={style.title}>{title}</Text>
-        <Text style={style.body}>{body}</Text>
-      </View>
+        <View style={{ margin: 24 }}>
+          <Text style={style.title}>{title}</Text>
+          <Text style={style.body}>{body}</Text>
+        </View>
 
-      <View style={style.buttonContainer}>
-        <TouchableOpacity style={style.buttonComment}>
-          <Button color="white" title="Ajouter un commentaire" />
-        </TouchableOpacity>
-      </View>
+        <View style={style.buttonContainer}>
+          <TouchableOpacity style={style.buttonComment}>
+            <Text style={style.buttonText}>AJOUTER UN COMMENTAIRE</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={style.commentContainer}>
+          <Text style={style.commentTitle}>COMMENTAIRES</Text>
 
-      <View style={style.commentContainer}>
-        <Text style={style.commentTitle}>Commentaires</Text>
-
-        <ScrollView>
-          {isPending ? (
-            <ActivityIndicator />
-          ) : (
-            <FlatList
-              style={style.flatList}
-              data={comments}
-              renderItem={({ item }) => (
-                <MiniComment style={style.miniComment} comment={item} />
-              )}
-            />
-          )}
-        </ScrollView>
+          <ScrollView>
+            {isPending ? (
+              <ActivityIndicator
+                style={{ marginTop: 100 }}
+                size="large"
+                color="white"
+              />
+            ) : (
+              <FlatList
+                data={comments}
+                renderItem={({ item }) => <MiniComment comment={item} />}
+              />
+            )}
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
@@ -83,16 +86,16 @@ const PostDetailScreenStyle = () =>
     },
     postContainer: {
       flex: 1,
-      margin: 24,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 20,
       fontWeight: "bold",
     },
     body: {
       fontSize: 15,
       marginTop: 16,
+      lineHeight: 22,
     },
     buttonContainer: {
       flex: 1,
@@ -101,20 +104,26 @@ const PostDetailScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
     },
     commentContainer: {
       flex: 3,
+      borderTopRightRadius: 30,
+      borderTopLeftRadius: 30,
       borderRadius: 30,
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
     },
     commentTitle: {
       fontSize: 20,
       alignSelf: "center",
-      color: "white",
+      color: COLORS.white,
       marginVertical: 24,
+    },
+    buttonText: {
+      textAlign: "center",
+      color: "white",
     },
   });

@@ -15,6 +15,7 @@ import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
 import { User } from "../../typing";
+import { COLORS } from "../../assets/colors";
 
 type HomeScreenProps = {
   users: User[] | null;
@@ -24,7 +25,7 @@ type HomeScreenProps = {
 };
 
 export const HomeScreen = (props: HomeScreenProps) => {
-  const HomeScreenContextual = HomeScreenStyle();
+  const style = HomeScreenStyle();
   const [value, setValue] = useState<string | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
 
@@ -47,7 +48,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
 
   return (
     <>
-      <SafeAreaView style={HomeScreenContextual.droidSafeArea}>
+      <SafeAreaView style={style.droidSafeArea}>
         <ScrollView>
           {props.error && (
             <ErrorMessage
@@ -57,7 +58,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
               retry={props.retry}
             />
           )}
-          <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
+          <Text style={style.title}>Choisir un utilisateur</Text>
           <SearchBar
             platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme
@@ -66,7 +67,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
               onChangeSearch(newVal);
             }}
             placeholder="Chercher un utilisateur ..."
-            placeholderTextColor="#888"
+            placeholderTextColor={COLORS.grey}
             round
             onClearText={() => setUsers(props.users)}
             value={value}
@@ -77,7 +78,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => props.setUser(item)}
-                  style={HomeScreenContextual.container}
+                  style={style.container}
                 >
                   <MiniProfile item={item}></MiniProfile>
                 </TouchableOpacity>
@@ -95,7 +96,7 @@ const HomeScreenStyle = () =>
   StyleSheet.create({
     title: {
       margin: 16,
-      color: "#20232a",
+      color: COLORS.black,
       textAlign: "center",
       fontSize: 30,
       fontWeight: "bold",

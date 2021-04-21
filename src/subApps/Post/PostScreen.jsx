@@ -3,13 +3,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  Text,
   ScrollView,
   ActivityIndicator,
 } from "react-native";
 
 import { MiniPost } from "./Components/MiniPost";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../../assets/colors";
 
 export function PostScreen(props) {
   const style = PostScreenStyle();
@@ -40,7 +40,7 @@ export function PostScreen(props) {
         <ActivityIndicator
           style={{ marginTop: 100 }}
           size="large"
-          color="#ff7A00"
+          color={COLORS.brandOrange}
         />
       ) : (
         <FlatList
@@ -68,7 +68,7 @@ const PostScreenStyle = () =>
       margin: 24,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 20,
       fontWeight: "bold",
     },
@@ -83,7 +83,7 @@ const PostScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
@@ -91,12 +91,12 @@ const PostScreenStyle = () =>
     commentContainer: {
       flex: 3,
       borderRadius: 30,
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
     },
     commentTitle: {
       fontSize: 20,
       alignSelf: "center",
-      color: "white",
+      color: COLORS.white,
       marginVertical: 24,
     },
   });

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
+import { COLORS } from "../../../assets/colors";
 
 export function MiniPost(props) {
   const style = MiniPostStyle();
@@ -31,7 +32,7 @@ const MiniPostStyle = () =>
       marginHorizontal: 8,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 15,
       fontWeight: "bold",
     },
