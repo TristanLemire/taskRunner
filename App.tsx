@@ -34,6 +34,7 @@ export type User = {
   phone: string;
   username: string;
   website: string;
+  image?: string;
 };
 
 type GetIconProps = {
@@ -74,19 +75,37 @@ export default function App() {
     return <Ionicons name={iconName} size={22} color={props.color} />;
   };
 
-  const fetchRetry = () => {
+  const randImage = [
+    "https://www.jeancoutu.com/globalassets/revamp/photo/conseils-photo/20160302-01-reseaux-sociaux-profil/photo-profil_301783868.jpg",
+    "https://www.gabrielgorgi.com/wp-content/uploads/2019/12/01.jpg",
+    "https://static-cse.canva.com/blob/189281/article_canva_le_guide_pour_creer_de_superbes_photos_de_profil_4.jpg",
+    "https://static-cse.canva.com/blob/189288/article_canva_le_guide_pour_creer_de_superbes_photos_de_profil_9-1.jpg",
+    "https://wl-sympa.cf.tsp.li/resize/728x/jpg/91b/430/964a9c5ac9933cc012d0bd80be.jpg",
+    "https://www.conseilsmarketing.com/wp-content/uploads/2020/03/flower-child-336658_1280-640x427.jpg",
+    "https://static-cse.canva.com/blob/189272/canva_creer_photo_de_profil.png",
+    "https://swello.com/fr/blog/wp-content/uploads/2018/07/profil-personnel.jpg",
+    "https://phototrend.fr/wp-content/uploads/2017/04/kal-visuals-592051-940x627.jpg",
+    "https://img-19.ccm2.net/NxJ_d9M2a9aFdJWQO29_Ft2dSQI=/1240x/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg",
+  ];
+
+  const fetchUsers = () => {
     setError(false);
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((json) => setUsers(json))
+      .then((json) => {
+        const newJson = json.map((item: User) => {
+          return {
+            ...item,
+            image: randImage[Math.floor(Math.random() * randImage.length)],
+          };
+        });
+        setUsers(newJson);
+      })
       .catch(() => setError(true));
   };
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => setUsers(json))
-      .catch(() => setError(true));
+    fetchUsers();
   }, []);
 
   return (
@@ -141,7 +160,7 @@ export default function App() {
             setUser={setUser}
             users={users}
             error={error}
-            retry={fetchRetry}
+            retry={fetchUsers}
           />
         </>
       )}
