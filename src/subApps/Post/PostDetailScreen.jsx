@@ -45,32 +45,34 @@ export function PostDetailScreen(props) {
   return (
     <View style={style.page}>
       <View style={style.postContainer}>
-        <Text style={style.title}>{title}</Text>
-        <Text style={style.body}>{body}</Text>
-      </View>
+        <View style={{ margin: 24 }}>
+          <Text style={style.title}>{title}</Text>
+          <Text style={style.body}>{body}</Text>
+        </View>
 
-      <View style={style.buttonContainer}>
-        <TouchableOpacity style={style.buttonComment}>
-          <Button color="white" title="Ajouter un commentaire" />
-        </TouchableOpacity>
-      </View>
+        <View style={style.buttonContainer}>
+          <TouchableOpacity style={style.buttonComment}>
+            <Text style={style.buttonText}>AJOUTER UN COMMENTAIRE</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={style.commentContainer}>
+          <Text style={style.commentTitle}>COMMENTAIRES</Text>
 
-      <View style={style.commentContainer}>
-        <Text style={style.commentTitle}>Commentaires</Text>
-
-        <ScrollView>
-          {isPending ? (
-            <ActivityIndicator />
-          ) : (
-            <FlatList
-              style={style.flatList}
-              data={comments}
-              renderItem={({ item }) => (
-                <MiniComment style={style.miniComment} comment={item} />
-              )}
-            />
-          )}
-        </ScrollView>
+          <ScrollView>
+            {isPending ? (
+              <ActivityIndicator
+                style={{ marginTop: 100 }}
+                size="large"
+                color="white"
+              />
+            ) : (
+              <FlatList
+                data={comments}
+                renderItem={({ item }) => <MiniComment comment={item} />}
+              />
+            )}
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
@@ -83,7 +85,6 @@ const PostDetailScreenStyle = () =>
     },
     postContainer: {
       flex: 1,
-      margin: 24,
     },
     title: {
       color: "#20232a",
@@ -93,6 +94,7 @@ const PostDetailScreenStyle = () =>
     body: {
       fontSize: 15,
       marginTop: 16,
+      lineHeight: 22,
     },
     buttonContainer: {
       flex: 1,
@@ -108,7 +110,8 @@ const PostDetailScreenStyle = () =>
     },
     commentContainer: {
       flex: 3,
-      borderRadius: 30,
+      borderTopRightRadius: 30,
+      borderTopLeftRadius: 30,
       backgroundColor: "#FF7A00",
     },
     commentTitle: {
@@ -116,5 +119,9 @@ const PostDetailScreenStyle = () =>
       alignSelf: "center",
       color: "white",
       marginVertical: 24,
+    },
+    buttonText: {
+      textAlign: "center",
+      color: "white",
     },
   });
