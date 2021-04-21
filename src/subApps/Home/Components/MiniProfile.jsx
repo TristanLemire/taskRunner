@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
+import { COLORS } from "../../../assets/colors";
 
 export function MiniProfile(props) {
   const style = MiniProfileStyle();
@@ -12,7 +13,7 @@ export function MiniProfile(props) {
     <ListItem bottomDivider pad={16}>
       <Avatar
         rounded
-        containerStyle={{ backgroundColor: "#BDBDBD" }}
+        containerStyle={{ backgroundColor: `${COLORS.grey}` }}
         size="medium"
         source={{ uri: image }}
       />
@@ -31,7 +32,7 @@ export function MiniProfile(props) {
 const MiniProfileStyle = () =>
   StyleSheet.create({
     userName: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 15,
       fontWeight: "bold",
     },

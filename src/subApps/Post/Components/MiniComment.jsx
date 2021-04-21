@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
+import { COLORS } from "../../../assets/colors";
 
 export function MiniComment(props) {
   const style = MiniCommentStyle();
@@ -27,13 +28,13 @@ const MiniCommentStyle = () =>
       padding: 12,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 15,
       fontWeight: "bold",
     },
     email: {
       fontStyle: "italic",
-      color: "#808080",
+      color: COLORS.grey,
       fontSize: 10,
     },
     body: {

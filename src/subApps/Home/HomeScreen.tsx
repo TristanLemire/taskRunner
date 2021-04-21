@@ -15,6 +15,7 @@ import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
 import { User } from "../../typing";
+import { COLORS } from "../../assets/colors";
 
 type HomeScreenProps = {
   users: User[] | null;
@@ -66,7 +67,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
               onChangeSearch(newVal);
             }}
             placeholder="Chercher un utilisateur ..."
-            placeholderTextColor="#888"
+            placeholderTextColor={COLORS.grey}
             round
             onClearText={() => setUsers(props.users)}
             value={value}
@@ -95,7 +96,7 @@ const HomeScreenStyle = () =>
   StyleSheet.create({
     title: {
       margin: 16,
-      color: "#20232a",
+      color: COLORS.black,
       textAlign: "center",
       fontSize: 30,
       fontWeight: "bold",
