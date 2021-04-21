@@ -22,7 +22,7 @@ export function TodoNavigation(props) {
         }}
         options={{
           headerStyle: {
-            backgroundColor: COLORS.brandOrange,
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
             color: COLORS.white,

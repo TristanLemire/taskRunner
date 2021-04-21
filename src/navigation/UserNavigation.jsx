@@ -47,7 +47,7 @@ export function UserNavigation(props) {
               ),
               title: `${name}`,
               headerStyle: {
-                backgroundColor: COLORS.brandOrange,
+                backgroundColor: COLORS.primary,
                 shadowRadius: 0,
                 shadowOffset: {
                   height: 0,
