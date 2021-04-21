@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AlbumScreen } from "../subApps/Album/AlbumScreen";
-import { COLORS } from "../assets/colors";
+import { COLORS } from "../assets/tokens";
 
 const Stack = createStackNavigator();
 

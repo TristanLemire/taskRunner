@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { COLORS, FONTSIZES, SPACES } from "../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 const windowHeight = Dimensions.get("window").height;
 

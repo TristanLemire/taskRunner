@@ -5,13 +5,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Button,
   ScrollView,
   FlatList,
   ActivityIndicator,
 } from "react-native";
+
 import { MiniComment } from "./Components/MiniComment";
-import { COLORS, FONTSIZES, SPACES } from "../../assets/colors";
+
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();

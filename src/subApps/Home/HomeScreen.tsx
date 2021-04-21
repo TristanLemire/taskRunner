@@ -15,7 +15,7 @@ import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
 import { User } from "../../typing";
-import { COLORS } from "../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 type HomeScreenProps = {
   users: User[] | null;
@@ -95,18 +95,18 @@ export const HomeScreen = (props: HomeScreenProps) => {
 const HomeScreenStyle = () =>
   StyleSheet.create({
     title: {
-      margin: 16,
+      margin: SPACES.xdefault,
       color: COLORS.black,
       textAlign: "center",
-      fontSize: 30,
+      fontSize: FONTSIZES.xlarge,
       fontWeight: "bold",
     },
     container: {
-      margin: 8,
-      padding: 8,
+      margin: SPACES.default,
+      padding: SPACES.default,
     },
     droidSafeArea: {
       flex: 1,
-      paddingTop: Platform.OS === "android" ? 25 : 0,
+      paddingTop: Platform.OS === "android" ? SPACES.large : SPACES.none,
     },
   });

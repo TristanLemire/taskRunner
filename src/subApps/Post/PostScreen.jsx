@@ -9,7 +9,7 @@ import {
 
 import { MiniPost } from "./Components/MiniPost";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, FONTSIZES, SPACES } from "../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 export function PostScreen(props) {
   const style = PostScreenStyle();
