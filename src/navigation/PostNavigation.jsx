@@ -24,7 +24,7 @@ export function PostNavigation(props) {
         options={{
           headerTitle: "Posts",
           headerStyle: {
-            backgroundColor: COLORS.brandOrange,
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
             color: COLORS.white,
@@ -38,7 +38,7 @@ export function PostNavigation(props) {
           headerTitle: "Detail",
           headerTintColor: "white",
           headerStyle: {
-            backgroundColor: COLORS.brandOrange,
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
             color: COLORS.white,

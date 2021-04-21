@@ -10,8 +10,8 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import { COLORS } from "../../assets/colors";
 import { MiniComment } from "./Components/MiniComment";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/colors";
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();
@@ -46,7 +46,7 @@ export function PostDetailScreen(props) {
   return (
     <View style={style.page}>
       <View style={style.postContainer}>
-        <View style={{ margin: 24 }}>
+        <View style={style.articleContainer}>
           <Text style={style.title}>{title}</Text>
           <Text style={style.body}>{body}</Text>
         </View>
@@ -64,7 +64,7 @@ export function PostDetailScreen(props) {
               <ActivityIndicator
                 style={{ marginTop: 100 }}
                 size="large"
-                color="white"
+                color={COLORS.white}
               />
             ) : (
               <FlatList
@@ -87,15 +87,18 @@ const PostDetailScreenStyle = () =>
     postContainer: {
       flex: 1,
     },
+    articleContainer: {
+      margin: SPACES.large,
+    },
     title: {
       color: COLORS.black,
-      fontSize: 20,
+      fontSize: FONTSIZES.large,
       fontWeight: "bold",
     },
     body: {
-      fontSize: 15,
-      marginTop: 16,
-      lineHeight: 22,
+      fontSize: FONTSIZES.default,
+      marginTop: SPACES.xdefault,
+      lineHeight: SPACES.large,
     },
     buttonContainer: {
       flex: 1,
@@ -104,7 +107,7 @@ const PostDetailScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: COLORS.brandOrange,
+      backgroundColor: COLORS.primary,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
@@ -113,17 +116,16 @@ const PostDetailScreenStyle = () =>
       flex: 3,
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
-      borderRadius: 30,
-      backgroundColor: COLORS.brandOrange,
+      backgroundColor: COLORS.primary,
     },
     commentTitle: {
-      fontSize: 20,
+      fontSize: FONTSIZES.large,
       alignSelf: "center",
       color: COLORS.white,
-      marginVertical: 24,
+      marginVertical: SPACES.large,
     },
     buttonText: {
       textAlign: "center",
-      color: "white",
+      color: COLORS.white,
     },
   });
