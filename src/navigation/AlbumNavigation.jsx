@@ -36,7 +36,7 @@ export function AlbumNavigation(props) {
         options={{
           headerTintColor: COLORS.white,
           headerStyle: {
-            backgroundColor: COLORS.brandOrange,
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
             color: COLORS.white,

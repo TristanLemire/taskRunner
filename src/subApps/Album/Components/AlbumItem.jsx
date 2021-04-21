@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
 export function AlbumItem(props) {
   const AlbumContextual = AlbumStyle();
@@ -21,8 +23,8 @@ const AlbumStyle = () =>
   StyleSheet.create({
     cardBody: {
       width: Dimensions.get("window").width / 2.2,
-      marginBottom: 20,
-      backgroundColor: "#e0e0e0",
+      marginBottom: SPACES.large,
+      backgroundColor: COLORS.white,
     },
     cardImage: {
       width: Dimensions.get("window").width / 2.2,
@@ -30,10 +32,8 @@ const AlbumStyle = () =>
       resizeMode: "cover",
     },
     cardTitle: {
-      fontSize: 22,
-      color: "#5a5a5a",
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft: 8,
+      fontSize: FONTSIZES.default,
+      color: COLORS.black,
+      padding: SPACES.default,
     },
   });

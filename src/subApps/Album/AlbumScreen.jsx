@@ -1,4 +1,7 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
+import { useNavigation } from "@react-navigation/native";
+
 import {
   FlatList,
   StyleSheet,
@@ -6,12 +9,12 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
+
 import { AlbumItem } from "./Components/AlbumItem";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+
+import { COLORS, SPACES } from "../../assets/tokens";
 
 export function AlbumScreen(props) {
-  const [album, setAlbum] = useState(null);
   const [albums, setAlbums] = useState(null);
   const [isPending, setIspending] = useState(false);
   const navigation = useNavigation();
@@ -38,7 +41,7 @@ export function AlbumScreen(props) {
         <ActivityIndicator
           style={{ marginTop: 100 }}
           size="large"
-          color="#ff7A00"
+          color={COLORS.primary}
         />
       ) : (
         <FlatList
@@ -62,12 +65,12 @@ const AlbumStyle = () =>
   StyleSheet.create({
     cardContainer: {
       flex: 1,
-      padding: 10,
+      padding: SPACES.default,
     },
     cardRow: {
       flex: 1,
-      marginLeft: 10,
-      marginRight: 10,
+      marginLeft: SPACES.default,
+      marginRight: SPACES.default,
       flexDirection: "row",
       justifyContent: "center",
     },

@@ -1,4 +1,7 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
+import ImageViewer from "react-native-image-zoom-viewer";
+
 import {
   Dimensions,
   FlatList,
@@ -7,12 +10,10 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
-  Text,
 } from "react-native";
-import { useEffect, useState } from "react";
 import { Modal } from "react-native";
-import ImageViewer from "react-native-image-zoom-viewer";
-import Ionicons from "react-native-vector-icons/Ionicons";
+
+import { COLORS } from "../../assets/tokens";
 
 export function PhotoScreen(props) {
   const [photos, setPhotos] = useState(null);
@@ -55,7 +56,7 @@ export function PhotoScreen(props) {
           <ActivityIndicator
             style={{ marginTop: 100 }}
             size="large"
-            color="#ff7A00"
+            color={COLORS.primary}
           />
         </>
       ) : (
