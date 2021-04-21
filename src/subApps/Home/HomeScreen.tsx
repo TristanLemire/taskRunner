@@ -13,17 +13,30 @@ import { MiniProfile } from "./Components/MiniProfile";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
+import { User } from "../../../App";
 
-export function HomeScreen(props) {
+type HomeScreenProps = {
+  users: User[] | null;
+  error: boolean;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  retry: () => void;
+};
+
+export function HomeScreen(props: HomeScreenProps) {
   const HomeScreenContextual = HomeScreenStyle();
-  const [value, setValue] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [value, setValue] = useState<string | null>(null);
+  const [users, setUsers] = useState<User[] | null>(null);
+
+  console.log(props);
 
   useEffect(() => {
     setUsers(props.users);
   }, [props.users]);
 
-  const onChangeSearch = (newVal) => {
+  const onChangeSearch = (newVal: string) => {
+    if (!props.users) {
+      return;
+    }
     newVal === null || newVal === ""
       ? setUsers(props.users)
       : setUsers(props.users.filter((item) => item.name.includes(newVal)));
@@ -89,6 +102,6 @@ const HomeScreenStyle = () =>
     },
     droidSafeArea: {
       flex: 1,
-      paddingTop: Platform.OS === 'android' ? 25 : 0
-  },
+      paddingTop: Platform.OS === "android" ? 25 : 0,
+    },
   });
