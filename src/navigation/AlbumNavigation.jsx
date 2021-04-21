@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AlbumScreen } from "../subApps/Album/AlbumScreen";
+import { COLORS } from "../assets/colors";
 
 const Stack = createStackNavigator();
 
@@ -21,10 +22,10 @@ export function AlbumNavigation(props) {
         }}
         options={{
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.brandOrange,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />
