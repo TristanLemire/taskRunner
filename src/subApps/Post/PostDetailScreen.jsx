@@ -7,7 +7,7 @@ export function PostDetailScreen(props) {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.page}>
+    <View>
       <Text>Post</Text>
     </View>
   );
