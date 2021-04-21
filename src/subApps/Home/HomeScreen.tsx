@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   ScrollView,
@@ -6,43 +6,74 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
+import { UsersMap } from "./Components/UsersMap";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
+import { User } from "../../typing";
 
-export function HomeScreen(props) {
+type HomeScreenProps = {
+  users: User[] | null;
+  error: boolean;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  retry: () => void;
+};
+
+export const HomeScreen = (props: HomeScreenProps) => {
   const HomeScreenContextual = HomeScreenStyle();
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState<string | null>(null);
+  const [users, setUsers] = useState<User[] | null>(null);
+
+  useEffect(() => {
+    setUsers(props.users);
+  }, [props.users]);
+
+  const onChangeSearch = (newVal: string) => {
+    if (!props.users) {
+      return;
+    }
+    newVal === null || newVal === ""
+      ? setUsers(props.users)
+      : setUsers(
+          props.users.filter((item) =>
+            item.name.toLowerCase().includes(newVal.toLowerCase())
+          )
+        );
+  };
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={HomeScreenContextual.droidSafeArea}>
         <ScrollView>
           {props.error && (
             <ErrorMessage
               message={
-                "Veuillez nous pardonner une erreur a du se produire de notre coter, veuillez réessayer."
+                "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
               }
               retry={props.retry}
             />
           )}
           <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
           <SearchBar
-            platform="android"
+            platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme
-            onChangeText={(newVal) => setValue(newVal)}
+            onChangeText={(newVal) => {
+              setValue(newVal);
+              onChangeSearch(newVal);
+            }}
             placeholder="Chercher un utilisateur ..."
             placeholderTextColor="#888"
             round
-            onClearText={() => console.log(onClearText())}
+            onClearText={() => setUsers(props.users)}
             value={value}
           />
-          {props.users !== null && (
+          {users !== null && (
             <FlatList
-              data={props.users}
+              data={users}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => props.setUser(item)}
@@ -53,11 +84,12 @@ export function HomeScreen(props) {
               )}
             />
           )}
+          {users !== null && <UsersMap users={users} />}
         </ScrollView>
       </SafeAreaView>
     </>
   );
-}
+};
 
 const HomeScreenStyle = () =>
   StyleSheet.create({
@@ -71,5 +103,9 @@ const HomeScreenStyle = () =>
     container: {
       margin: 8,
       padding: 8,
+    },
+    droidSafeArea: {
+      flex: 1,
+      paddingTop: Platform.OS === "android" ? 25 : 0,
     },
   });
