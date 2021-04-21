@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
-import { COLORS } from "../../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
 export function MiniPost(props) {
   const style = MiniPostStyle();
@@ -28,18 +28,18 @@ export function MiniPost(props) {
 const MiniPostStyle = () =>
   StyleSheet.create({
     container: {
-      marginVertical: 16,
-      marginHorizontal: 8,
+      marginVertical: SPACES.xdefault,
+      marginHorizontal: SPACES.default,
     },
     title: {
       color: COLORS.black,
-      fontSize: 15,
+      fontSize: FONTSIZES.default,
       fontWeight: "bold",
     },
     subtitle: {
-      paddingTop: 8,
+      paddingTop: SPACES.default,
     },
     body: {
-      fontSize: 12,
+      fontSize: FONTSIZES.small,
     },
   });

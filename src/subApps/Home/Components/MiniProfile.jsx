@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import { COLORS } from "../../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
 export function MiniProfile(props) {
   const style = MiniProfileStyle();
@@ -33,13 +33,13 @@ const MiniProfileStyle = () =>
   StyleSheet.create({
     userName: {
       color: COLORS.black,
-      fontSize: 15,
+      fontSize: FONTSIZES.default,
       fontWeight: "bold",
     },
     subtitle: {
-      paddingTop: 8,
+      paddingTop: SPACES.default,
     },
     userEmail: {
-      fontSize: 12,
+      fontSize: FONTSIZES.small,
     },
   });
