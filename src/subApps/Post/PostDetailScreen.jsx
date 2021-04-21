@@ -10,6 +10,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
+import { COLORS } from "../../assets/colors";
 import { MiniComment } from "./Components/MiniComment";
 
 export function PostDetailScreen(props) {
@@ -86,7 +87,7 @@ const PostDetailScreenStyle = () =>
       margin: 24,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 20,
       fontWeight: "bold",
     },
@@ -101,7 +102,7 @@ const PostDetailScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
@@ -109,12 +110,12 @@ const PostDetailScreenStyle = () =>
     commentContainer: {
       flex: 3,
       borderRadius: 30,
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.brandOrange,
     },
     commentTitle: {
       fontSize: 20,
       alignSelf: "center",
-      color: "white",
+      color: COLORS.white,
       marginVertical: 24,
     },
   });

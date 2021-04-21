@@ -6,6 +6,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
+import { COLORS } from "../../assets/colors";
+
 const windowHeight = Dimensions.get("window").height;
 
 export const UserScreen = (props) => {
@@ -38,8 +40,7 @@ export const UserScreen = (props) => {
   return (
     <ScrollView style={style.page}>
       <LinearGradient
-        // Background Linear Gradient
-        colors={["#FF7A00", "#FFBC7E"]}
+        colors={[COLORS.brandOrange, COLORS.OrangeSecond]}
         style={style.background}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -47,7 +48,7 @@ export const UserScreen = (props) => {
       <View style={style.headerProfile}>
         <Avatar
           rounded
-          containerStyle={{ backgroundColor: "#BDBDBD" }}
+          containerStyle={{ backgroundColor: COLORS.white }}
           size="large"
           source={{ uri: image }}
         />
@@ -63,7 +64,7 @@ export const UserScreen = (props) => {
               style={style.icon}
               name="mail-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
             <Text style={style.text}>{email}</Text>
           </View>
@@ -73,7 +74,7 @@ export const UserScreen = (props) => {
               style={style.icon}
               name="location-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
             <Text style={style.text}>
               {street} {suite} {city} {zipcode}
@@ -85,7 +86,7 @@ export const UserScreen = (props) => {
               style={style.icon}
               name="phone-portrait-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
             <Text style={style.text}>{phone}</Text>
           </View>
@@ -95,7 +96,7 @@ export const UserScreen = (props) => {
               style={style.icon}
               name="globe-outline"
               size={22}
-              color="#ff7A00"
+              color={COLORS.brandOrange}
             />
             <Text style={style.text}>{website}</Text>
           </View>
@@ -182,17 +183,17 @@ const UserScreenStyle = () =>
       marginBottom: 16,
       fontSize: 16,
       fontWeight: "bold",
-      color: "#181818",
+      color: COLORS.black,
     },
     compagnyInfo: {
       marginBottom: 16,
       fontSize: 14,
-      color: "#181818",
+      color: COLORS.black,
       fontStyle: "italic",
     },
     compagnyBs: {
       fontSize: 14,
-      color: "#666666",
+      color: COLORS.grey,
     },
     textWithIcon: {
       flexDirection: "row",

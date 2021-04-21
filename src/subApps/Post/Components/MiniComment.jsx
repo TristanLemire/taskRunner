@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
+import { COLORS } from "../../../assets/colors";
 
 export function MiniComment(props) {
   const style = MiniCommentStyle();
@@ -36,13 +37,13 @@ const MiniCommentStyle = () =>
       marginHorizontal: 8,
     },
     title: {
-      color: "#20232a",
+      color: COLORS.black,
       fontSize: 15,
       fontWeight: "bold",
     },
     email: {
       fontStyle: "italic",
-      color: "#808080",
+      color: COLORS.grey,
       marginVertical: 4,
     },
     subtitle: {
