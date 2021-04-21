@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import {
   Text,
+  StyleSheet,
   TouchableOpacity,
   View,
   Button,
@@ -9,14 +10,15 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import { ListItem } from "react-native-elements";
 import { MiniComment } from "./Components/MiniComment";
 
 export function PostDetailScreen(props) {
+  const style = PostDetailScreenStyle();
+
   const {
     route: {
       params: {
-        post: { id: postId, body, title, userId },
+        post: { id: postId, body, title },
       },
     },
   } = props;
@@ -29,7 +31,6 @@ export function PostDetailScreen(props) {
       .then((response) => response.json())
       .then((json) => {
         setComments(
-          // console.log("json", json)
           json.filter((item) => item.postId === props.route.params.post.id)
         );
         setIsPending(false);
@@ -41,41 +42,68 @@ export function PostDetailScreen(props) {
     getComments();
   }, []);
 
-  console.log("comments", comments);
-
   return (
-    <View>
-      <Text>{title}</Text>
-      <Text>{body}</Text>
-      <Button title="Ajouter un commentaire"></Button>
+    <View style={style.page}>
+      <View style={style.postContainer}>
+        <Text>{title}</Text>
+        <Text>{body}</Text>
+      </View>
 
-      <ListItem bottomDivider pad={16}>
-        <Text>Commentaires</Text>
-        <ListItem.Content>
-          <ListItem.Title>
-            <Text>name</Text>
-          </ListItem.Title>
+      <View style={style.buttonContainer}>
+        <TouchableOpacity style={style.buttonComment}>
+          <Button color="white" title="Ajouter un commentaire"></Button>
+        </TouchableOpacity>
+      </View>
 
-          <ListItem.Subtitle>
-            <Text>Comment body</Text>
-          </ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
+      <View style={style.commentContainer}>
+        <Text style={style.commentTitle}>Commentaires</Text>
 
-      <ScrollView>
-        {isPending ? (
-          <ActivityIndicator
-            style={{ marginTop: 100 }}
-            size="large"
-            color="#ff7A00"
-          />
-        ) : (
-          <FlatList
-            data={comments}
-            renderItem={({ item }) => <MiniComment comment={item} />}
-          />
-        )}
-      </ScrollView>
+        <ScrollView>
+          {isPending ? (
+            <ActivityIndicator />
+          ) : (
+            <FlatList
+              style={style.flatList}
+              data={comments}
+              renderItem={({ item }) => (
+                <MiniComment style={style.miniComment} comment={item} />
+              )}
+            />
+          )}
+        </ScrollView>
+      </View>
     </View>
   );
 }
+
+const PostDetailScreenStyle = () =>
+  StyleSheet.create({
+    page: {
+      flex: 1,
+    },
+    postContainer: {
+      flex: 1,
+    },
+    buttonContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignContent: "center",
+    },
+    buttonComment: {
+      backgroundColor: "#FF7A00",
+      borderRadius: 100,
+      height: 50,
+      width: 160,
+    },
+    commentContainer: {
+      flex: 3,
+      borderRadius: 30,
+      backgroundColor: "#FF7A00",
+    },
+    commentTitle: {
+      fontSize: 20,
+      alignSelf: "center",
+      color: "white",
+      marginTop: 24,
+    },
+  });
