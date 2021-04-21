@@ -8,8 +8,11 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
+  Pressable,
+  StyleSheet
 } from "react-native";
 import { ListItem } from "react-native-elements";
+import AddModal from "../../components/Modal/Modal";
 
 export function PostDetailScreen(props) {
   const {
@@ -22,6 +25,7 @@ export function PostDetailScreen(props) {
 
   const [comments, setComments] = useState(null);
   const [isPending, setIsPending] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const getComments = () => {
     fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
@@ -35,18 +39,28 @@ export function PostDetailScreen(props) {
       });
   };
 
+  function handlePress() {
+    console.log('modal', modalVisible);
+    setModalVisible(true);
+  }
+
   useEffect(() => {
     setIsPending(true);
     getComments();
   }, []);
 
-  console.log("comments", comments);
+  // console.log("comments", comments);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>{title}</Text>
       <Text>{body}</Text>
-      <Button title="Ajouter un commentaire"></Button>
+
+      <AddModal modalVisible={modalVisible} onPress={handlePress}/>
+      
+      <Pressable style={[styles.button, styles.buttonClose]} onPress={() => handlePress()}>
+        <Text>Ajouter un commentaire</Text>
+      </Pressable>
 
       <ListItem bottomDivider pad={16}>
         <Text>Commentaires</Text>
@@ -86,3 +100,17 @@ export function PostDetailScreen(props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+})
