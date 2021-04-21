@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
+
+const windowHeight = Dimensions.get("window").height;
 
 export const UserScreen = (props) => {
   const {
@@ -34,6 +37,13 @@ export const UserScreen = (props) => {
   const UserScreenStyleContextual = UserScreenStyle();
   return (
     <ScrollView style={UserScreenStyleContextual.page}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={['#FF7A00', '#FFBC7E']}
+        style={UserScreenStyleContextual.background}
+        start={{ x: 0, y: 0 }}
+        end={ { x: 0, y: 1 }}
+        />
       <View style={UserScreenStyleContextual.headerProfile}>
         <Avatar
           rounded
@@ -104,14 +114,21 @@ export const UserScreen = (props) => {
           <Text style={UserScreenStyleContextual.compagnyBs}>{bs}</Text>
         </View>
       </View>
-      <MapView
-        initialRegion={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+      <View style={UserScreenStyleContextual.sectionMap}>
+        <Text style={UserScreenStyleContextual.titleSection}>
+          Votre Position
+        </Text>
+        <MapView
+          style={{ height: 200, width: "100%" }}
+          initialRegion={{
+            latitude: latitude,
+            longitude: longitude,
+            latitudeDelta: 20,
+            longitudeDelta: 20,
+          }}>
+          <Marker coordinate={{ latitude: latitude, longitude: longitude}} />
+        </MapView>
+      </View>
     </ScrollView>
   );
 };
@@ -120,7 +137,6 @@ const UserScreenStyle = () =>
   StyleSheet.create({
     page: {
       flex: 1,
-      backgroundColor: "#ff7A00",
     },
     headerProfile: {
       flex: 0.5,
@@ -138,6 +154,10 @@ const UserScreenStyle = () =>
       alignItems: "center",
       margin: 16,
       flex: 1,
+    },
+    sectionMap: {
+      alignItems: "center",
+      marginTop: 16,
     },
     titleSection: {
       marginBottom: 16,
@@ -190,5 +210,12 @@ const UserScreenStyle = () =>
     text: {
       flex: 1,
       flexWrap: "wrap",
+    },
+    background: {
+      position: "absolute",
+      left: 0,
+      right: 0,
+      top: 0,
+      height: windowHeight,
     },
   });
