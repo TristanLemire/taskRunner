@@ -1,10 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
 import { Text, StyleSheet, View } from "react-native";
-=======
-import { Text, StyleSheet } from "react-native";
-import { ListItem } from "react-native-elements";
->>>>>>> 77187794658564839050dd6342c6647a4f518e9c
 
 export function MiniComment(props) {
   const style = MiniCommentStyle();
