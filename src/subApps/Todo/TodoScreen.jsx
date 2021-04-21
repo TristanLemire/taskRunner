@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView, FlatList } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -7,40 +8,38 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export function TodoScreen(props) {
   const [todos, setTodos] = useState([]);
-  const [checked, setChecked] = useState(false);
 
   const userId = props.route.params.user.id;
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('todos', jsonValue)
+    } catch (e) {
+      console.log(error);
+    }
+  }
 
   const postTodo = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`)
       .then((response) => response.json())
       .then((json) => setTodos(json));
+      storeData(todos);
   };
 
-  const validationTodo = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${userId}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        userId: todos.userId,
-        id: todos.id,
-        title: todos.title,
-        completed: setChecked(false)
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-  })
-  .then((response) => response.json())
-  .then((json) => console.log(json));
-
-  }
+  const getTodo = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('todos')
+        return jsonValue != null ? console.log(JSON.parse(jsonValue)) : null
+      } catch(e) {
+        console.log(e)
+      }
+    }
 
   useEffect(() => {
-    validationTodo();
     postTodo();
-  }, []);
+  }, [todos]);
 
-  console.log("todos: ", todos);
   return (
     <View style={{ backgroundColor: "white" }}>
       <ScrollView>
@@ -49,13 +48,7 @@ export function TodoScreen(props) {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.checkbox}
-              onPress={() => {
-                // console.log(
-                //   "tache fini: PA ici tu ferra un call api pour dire que cette tache est valide ou invalide si elle est deja validé",
-                //   postTodo()
-                // );
-                validationTodo()
-              }}
+              // onPress={() => {}}
             >
               <Ionicons
                 name={
