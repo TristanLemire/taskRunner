@@ -14,7 +14,7 @@ import { UsersMap } from "./Components/UsersMap";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
-import { User } from "../../../App";
+import { User } from "../../typing";
 
 type HomeScreenProps = {
   users: User[] | null;
@@ -23,7 +23,7 @@ type HomeScreenProps = {
   retry: () => void;
 };
 
-export function HomeScreen(props: HomeScreenProps) {
+export const HomeScreen = (props: HomeScreenProps) => {
   const HomeScreenContextual = HomeScreenStyle();
   const [value, setValue] = useState<string | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
@@ -84,14 +84,12 @@ export function HomeScreen(props: HomeScreenProps) {
               )}
             />
           )}
-          {users !== null && 
-            <UsersMap data={users} />
-          }
+          {users !== null && <UsersMap users={users} />}
         </ScrollView>
       </SafeAreaView>
     </>
   );
-}
+};
 
 const HomeScreenStyle = () =>
   StyleSheet.create({
