@@ -12,6 +12,8 @@ import { MiniPost } from "./Components/MiniPost";
 import { useNavigation } from "@react-navigation/native";
 
 export function PostScreen(props) {
+  const style = PostScreenStyle();
+
   const navigation = useNavigation();
   const [posts, setPosts] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -33,7 +35,7 @@ export function PostScreen(props) {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={style.page}>
       {isPending ? (
         <ActivityIndicator
           style={{ marginTop: 100 }}
