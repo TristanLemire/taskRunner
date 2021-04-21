@@ -45,13 +45,13 @@ export function PostDetailScreen(props) {
   return (
     <View style={style.page}>
       <View style={style.postContainer}>
-        <Text>{title}</Text>
-        <Text>{body}</Text>
+        <Text style={style.title}>{title}</Text>
+        <Text style={style.body}>{body}</Text>
       </View>
 
       <View style={style.buttonContainer}>
         <TouchableOpacity style={style.buttonComment}>
-          <Button color="white" title="Ajouter un commentaire"></Button>
+          <Button color="white" title="Ajouter un commentaire" />
         </TouchableOpacity>
       </View>
 
@@ -83,17 +83,28 @@ const PostDetailScreenStyle = () =>
     },
     postContainer: {
       flex: 1,
+      margin: 24,
+    },
+    title: {
+      color: "#20232a",
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    body: {
+      fontSize: 15,
+      marginTop: 16,
     },
     buttonContainer: {
       flex: 1,
       justifyContent: "center",
-      alignContent: "center",
+      alignSelf: "center",
+      width: "80%",
     },
     buttonComment: {
       backgroundColor: "#FF7A00",
       borderRadius: 100,
-      height: 50,
-      width: 160,
+      height: "40%",
+      justifyContent: "center",
     },
     commentContainer: {
       flex: 3,
@@ -104,6 +115,6 @@ const PostDetailScreenStyle = () =>
       fontSize: 20,
       alignSelf: "center",
       color: "white",
-      marginTop: 24,
+      marginVertical: 24,
     },
   });
