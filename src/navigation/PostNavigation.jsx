@@ -6,13 +6,19 @@ import { PostDetailScreen } from "../subApps/Post/PostDetailScreen";
 const Stack = createStackNavigator();
 
 export function PostNavigation(props) {
+  const {
+    route: {
+      params: { user },
+    },
+  } = props;
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Post"
         component={PostScreen}
         initialParams={{
-          user: props.route.params.user,
+          user: user,
         }}
         options={{
           headerTitle: "Posts",

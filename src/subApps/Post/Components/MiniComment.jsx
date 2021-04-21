@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
 
 export function MiniComment(props) {
