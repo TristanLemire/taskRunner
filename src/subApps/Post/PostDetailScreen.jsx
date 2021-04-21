@@ -43,11 +43,6 @@ export function PostDetailScreen(props) {
       });
   };
 
-  function handlePress() {
-    console.log("modal", modalVisible);
-    setModalVisible(true);
-  }
-
   useEffect(() => {
     setIsPending(true);
     getComments();
@@ -64,7 +59,7 @@ export function PostDetailScreen(props) {
         <View style={style.buttonContainer}>
           <TouchableOpacity
             style={style.buttonComment}
-            onPress={() => handlePress()}
+            onPress={() => setModalVisible(true)}
           >
             <Text style={style.buttonText}>AJOUTER UN COMMENTAIRE</Text>
           </TouchableOpacity>

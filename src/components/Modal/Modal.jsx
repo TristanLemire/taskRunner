@@ -18,14 +18,13 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
-      <View
-        style={AddModalStyleContextual.modal}
-        // onPress={() => closeModal()}
-      >
+      <View style={AddModalStyleContextual.modal}>
         <View style={AddModalStyleContextual.modalContainer}>
           <TouchableOpacity
             style={AddModalStyleContextual.clodeButton}
-            onPress={() => closeModal()}
+            onPress={() => {
+              setTitle(null), setComment(null), closeModal();
+            }}
           >
             <Ionicons
               style={AddModalStyleContextual.icon}
