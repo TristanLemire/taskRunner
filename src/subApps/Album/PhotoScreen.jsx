@@ -7,12 +7,19 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  Text,
 } from "react-native";
 import { useEffect, useState } from "react";
+import { Modal } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export function PhotoScreen(props) {
   const [photos, setPhotos] = useState(null);
   const [isPending, setIspending] = useState(false);
+  const [images, setImages] = useState(null);
+  const [viewModal, setViewModal] = useState(false);
+  const [index, setIndex] = useState(null);
 
   const getImages = () => {
     setIspending(true);
@@ -29,6 +36,16 @@ export function PhotoScreen(props) {
     getImages();
   }, []);
 
+  useEffect(() => {
+    photos &&
+      setImages(
+        photos.reduce((acc, curr) => {
+          acc.push({ url: curr.url });
+          return acc;
+        }, [])
+      );
+  }, [photos]);
+
   const PhotoContextual = PhotoStyle();
 
   return (
@@ -42,21 +59,37 @@ export function PhotoScreen(props) {
           />
         </>
       ) : (
-        <FlatList
-          data={photos}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <TouchableOpacity>
-              <View>
-                <Image
-                  source={{ uri: item.url }}
-                  style={PhotoContextual.cardImage}
-                />
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+        <>
+          <FlatList
+            data={images}
+            numColumns={2}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setIndex(index), setViewModal(true);
+                }}
+              >
+                <View>
+                  <Image
+                    source={{ uri: item.url }}
+                    style={PhotoContextual.cardImage}
+                  />
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </>
       )}
+      <Modal visible={viewModal} transparent={true}>
+        <ImageViewer
+          imageUrls={images}
+          index={index}
+          enableSwipeDown={true}
+          onSwipeDown={() => {
+            setViewModal(false), setIndex(null);
+          }}
+        />
+      </Modal>
     </View>
   );
 }
