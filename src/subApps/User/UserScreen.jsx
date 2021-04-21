@@ -57,7 +57,7 @@ export const UserScreen = (props) => {
               size={22}
               color="#ff7A00"
             />
-            <Text>{email}</Text>
+            <Text style={UserScreenStyleContextual.text}>{email}</Text>
           </View>
 
           <View style={UserScreenStyleContextual.textWithIcon}>
@@ -67,7 +67,7 @@ export const UserScreen = (props) => {
               size={22}
               color="#ff7A00"
             />
-            <Text>
+            <Text style={UserScreenStyleContextual.text}>
               {street} {suite} {city} {zipcode}
             </Text>
           </View>
@@ -79,7 +79,7 @@ export const UserScreen = (props) => {
               size={22}
               color="#ff7A00"
             />
-            <Text>{phone}</Text>
+            <Text style={UserScreenStyleContextual.text}>{phone}</Text>
           </View>
 
           <View style={UserScreenStyleContextual.textWithIcon}>
@@ -89,7 +89,7 @@ export const UserScreen = (props) => {
               size={22}
               color="#ff7A00"
             />
-            <Text>{website}</Text>
+            <Text style={UserScreenStyleContextual.text}>{website}</Text>
           </View>
         </View>
       </View>
@@ -186,5 +186,9 @@ const UserScreenStyle = () =>
     },
     icon: {
       marginRight: 12,
+    },
+    text: {
+      flex: 1,
+      flexWrap: "wrap",
     },
   });
