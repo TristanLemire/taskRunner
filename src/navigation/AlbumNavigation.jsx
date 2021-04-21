@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AlbumScreen } from "../subApps/Album/AlbumScreen";
+import { PhotoScreen } from "../subApps/Album/PhotoScreen";
 import { COLORS } from "../assets/colors";
 
 const Stack = createStackNavigator();
@@ -21,6 +22,19 @@ export function AlbumNavigation(props) {
           user: user,
         }}
         options={{
+          headerStyle: {
+            backgroundColor: COLORS.brandOrange,
+          },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Photo"
+        component={PhotoScreen}
+        options={{
+          headerTintColor: "white",
           headerStyle: {
             backgroundColor: COLORS.brandOrange,
           },
