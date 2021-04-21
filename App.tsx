@@ -8,34 +8,10 @@ import { PostNavigation } from "./src/navigation/PostNavigation";
 import { HomeScreen } from "./src/subApps/Home/HomeScreen";
 import { UserNavigation } from "./src/navigation/UserNavigation";
 import { LogBox } from "react-native";
+import { User } from "./src/typing";
 
 const Tab = createBottomTabNavigator();
 export const { Provider, Consumer } = createContext({});
-
-export type User = {
-  address: {
-    city: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-    street: string;
-    suite: string;
-    zipcode: string;
-  };
-  company: {
-    bs: string;
-    catchPhrase: string;
-    name: string;
-  };
-  email: string;
-  id: number;
-  name: string;
-  phone: string;
-  username: string;
-  website: string;
-  image?: string;
-};
 
 type GetIconProps = {
   route: RouteProp<Record<string, object | undefined>, string>;

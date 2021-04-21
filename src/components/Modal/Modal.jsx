@@ -1,82 +1,174 @@
-import React from "react";
-import { Modal, Pressable, Text, View } from "react-native";
+import React, { useState } from "react";
+import {
+  Modal,
+  TextInput,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const AddModal = (props) => {
-
-  const { modalVisible } = props
-
-  function handlePress(event) {
-    console.log('modal' ,modalVisible)
-    props.onChange(event.target.value)
-  }
+export const AddModal = ({ modalVisible, closeModal, user }) => {
+  const AddModalStyleContextual = AddModalStyle();
+  const [title, setTitle] = useState(null);
+  const [comment, setComment] = useState(null);
+  const userMail = user.email;
 
   return (
-    <View style={AddModalStyle.centeredView}>
-      <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert("Modal closed");
-        handlePress(!modalVisible)
-      }}
+    <Modal animationType="fade" visible={modalVisible} transparent={true}>
+      <View
+        style={AddModalStyleContextual.modal}
+        // onPress={() => closeModal()}
       >
-        <View style={AddModalStyle.centeredView}>
-          <View style={AddModalStyle.modalView}>
-            <Text style={AddModalStyle.modalText}>Test !</Text>
-            <Pressable onPress={() => handlePress(!modalVisible)}>
-              <Text style={AddModalStyle.modalClose}>Fermer la modal</Text>
-            </Pressable>
+        <View style={AddModalStyleContextual.modalContainer}>
+          <TouchableOpacity
+            style={AddModalStyleContextual.clodeButton}
+            onPress={() => closeModal()}
+          >
+            <Ionicons
+              style={AddModalStyleContextual.icon}
+              name="ios-close-circle"
+              size={40}
+              color="#ff7A00"
+            />
+          </TouchableOpacity>
+          <Text style={AddModalStyleContextual.title}>
+            AJOUTER UN COMMENTAIRE
+          </Text>
+          <View style={AddModalStyleContextual.input}>
+            <Text style={AddModalStyleContextual.inputTitle}>Titre</Text>
+            <TextInput
+              style={AddModalStyleContextual.inputText}
+              onChangeText={(value) => setTitle(value)}
+              value={title}
+              placeholder={"titre de cummentaire"}
+            />
           </View>
+          <View style={AddModalStyleContextual.input}>
+            <Text style={AddModalStyleContextual.textAreaTitle}>
+              Commantaire
+            </Text>
+            <TextInput
+              multiline={true}
+              numberOfLines={3}
+              style={AddModalStyleContextual.textArea}
+              onChangeText={(value) => setComment(value)}
+              value={comment}
+              placeholder={"titre de cummentaire"}
+            />
+          </View>
+          <TouchableOpacity
+            style={AddModalStyleContextual.button}
+            onPress={() =>
+              console.log("ici faire le post du comment en localstorage")
+            }
+          >
+            <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
-    </View>
-  )
-}
+      </View>
+    </Modal>
+  );
+};
 
 const AddModalStyle = () =>
   StyleSheet.create({
-    centeredView: {
+    modal: {
+      backgroundColor: "rgba(52, 52, 52, 0.609)",
       flex: 1,
       justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
     },
-    modalView: {
-      margin: 20,
+    inputText: {
+      borderBottomWidth: 1,
+      borderColor: "#ff7a00",
+    },
+    modalContainer: {
       backgroundColor: "white",
-      borderRadius: 20,
-      padding: 35,
+      margin: 24,
+      borderRadius: 10,
+      padding: 20,
       alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5
+    },
+    title: {
+      textAlign: "center",
+      marginBottom: 24,
+      fontSize: 18,
+    },
+    textArea: {
+      borderWidth: 1,
+      borderColor: "#ff7a00",
+      borderRadius: 10,
+      padding: 10,
+    },
+    input: {
+      marginBottom: 16,
+      width: Dimensions.get("screen").width / 1.3,
+    },
+    inputTitle: {
+      fontWeight: "bold",
+    },
+    textAreaTitle: {
+      marginBottom: 8,
+      fontWeight: "bold",
     },
     button: {
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2
+      backgroundColor: "#ff7a00",
+      width: 140,
+      paddingTop: 8,
+      paddingBottom: 8,
+      borderRadius: 50,
     },
-    buttonOpen: {
-      backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-      backgroundColor: "#2196F3",
-    },
-    modalClose: {
+    buttonText: {
+      textAlign: "center",
       color: "white",
-      fontWeight: "bold",
-      textAlign: "center"
+      fontSize: 20,
     },
-    modalText: {
-      marginBottom: 15,
-      textAlign: "center"
-    }
-  })
-
-export default AddModal
+    clodeButton: {
+      position: "absolute",
+      right: -13,
+      top: -13,
+    },
+    // centeredView: {
+    //   flex: 1,
+    //   justifyContent: "center",
+    //   alignItems: "center",
+    //   marginTop: 22,
+    // },
+    // modalView: {
+    //   margin: 20,
+    //   backgroundColor: "white",
+    //   borderRadius: 20,
+    //   padding: 35,
+    //   alignItems: "center",
+    //   shadowColor: "#000",
+    //   shadowOffset: {
+    //     width: 0,
+    //     height: 2,
+    //   },
+    //   shadowOpacity: 0.25,
+    //   shadowRadius: 4,
+    //   elevation: 5,
+    // },
+    // button: {
+    //   borderRadius: 20,
+    //   padding: 10,
+    //   elevation: 2,
+    // },
+    // buttonOpen: {
+    //   backgroundColor: "#F194FF",
+    // },
+    // buttonClose: {
+    //   backgroundColor: "#2196F3",
+    // },
+    // modalClose: {
+    //   color: "white",
+    //   fontWeight: "bold",
+    //   textAlign: "center",
+    // },
+    // modalText: {
+    //   marginBottom: 15,
+    //   textAlign: "center",
+    // },
+  });

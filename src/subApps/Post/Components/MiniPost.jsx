@@ -8,7 +8,6 @@ export function MiniPost(props) {
   const {
     post: { body, title },
   } = props;
-  // console.log("body", body);
 
   return (
     <ListItem bottomDivider pad={16}>

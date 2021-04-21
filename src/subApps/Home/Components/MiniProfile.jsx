@@ -3,24 +3,25 @@ import { Text, StyleSheet } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 
 export function MiniProfile(props) {
-  const MiniProfileContextual = MiniProfileStyle();
-  const { item } = props;
+  const style = MiniProfileStyle();
+  const {
+    item: { image, name, email },
+  } = props;
 
   return (
     <ListItem bottomDivider pad={16}>
-      {/* {console.log(item)} */}
       <Avatar
         rounded
         containerStyle={{ backgroundColor: "#BDBDBD" }}
         size="medium"
-        source={{ uri: item.image }}
+        source={{ uri: image }}
       />
       <ListItem.Content>
         <ListItem.Title>
-          <Text style={MiniProfileContextual.userName}>{item.name}</Text>
+          <Text style={style.userName}>{name}</Text>
         </ListItem.Title>
-        <ListItem.Subtitle style={MiniProfileContextual.subtitle}>
-          <Text style={MiniProfileContextual.userEmail}>{item.email}</Text>
+        <ListItem.Subtitle style={style.subtitle}>
+          <Text style={style.userEmail}>{email}</Text>
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>

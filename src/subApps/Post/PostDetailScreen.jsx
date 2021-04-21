@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 
 import {
   Text,
+  StyleSheet,
   TouchableOpacity,
   View,
-  Button,
   ScrollView,
   FlatList,
   ActivityIndicator,
-  Pressable,
-  StyleSheet
 } from "react-native";
-import { ListItem } from "react-native-elements";
-import AddModal from "../../components/Modal/Modal";
+import { MiniComment } from "./Components/MiniComment";
+import { AddModal } from "../../components/Modal/Modal";
 
 export function PostDetailScreen(props) {
+  const style = PostDetailScreenStyle();
+
   const {
     route: {
       params: {
-        post: { id: postId, body, title, userId },
+        post: { id: postId, body, title },
+        user,
       },
     },
   } = props;
@@ -27,12 +28,15 @@ export function PostDetailScreen(props) {
   const [isPending, setIsPending] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   const getComments = () => {
     fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
       .then((response) => response.json())
       .then((json) => {
         setComments(
-          // console.log("json", json)
           json.filter((item) => item.postId === props.route.params.post.id)
         );
         setIsPending(false);
@@ -40,7 +44,7 @@ export function PostDetailScreen(props) {
   };
 
   function handlePress() {
-    console.log('modal', modalVisible);
+    console.log("modal", modalVisible);
     setModalVisible(true);
   }
 
@@ -49,68 +53,94 @@ export function PostDetailScreen(props) {
     getComments();
   }, []);
 
-  // console.log("comments", comments);
-
   return (
-    <View style={styles.container}>
-      <Text>{title}</Text>
-      <Text>{body}</Text>
+    <View style={style.page}>
+      <View style={style.postContainer}>
+        <View style={{ margin: 24 }}>
+          <Text style={style.title}>{title}</Text>
+          <Text style={style.body}>{body}</Text>
+        </View>
 
-      <AddModal modalVisible={modalVisible} onPress={handlePress}/>
-      
-      <Pressable style={[styles.button, styles.buttonClose]} onPress={() => handlePress()}>
-        <Text>Ajouter un commentaire</Text>
-      </Pressable>
+        <View style={style.buttonContainer}>
+          <TouchableOpacity
+            style={style.buttonComment}
+            onPress={() => handlePress()}
+          >
+            <Text style={style.buttonText}>AJOUTER UN COMMENTAIRE</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={style.commentContainer}>
+          <Text style={style.commentTitle}>COMMENTAIRES</Text>
 
-      <ListItem bottomDivider pad={16}>
-        <Text>Commentaires</Text>
-        <ListItem.Content>
-          <ListItem.Title>
-            <Text>name</Text>
-          </ListItem.Title>
-
-          <ListItem.Subtitle>
-            <Text>Comment body</Text>
-          </ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
-
-      <ScrollView>
-        {isPending ? (
-          <ActivityIndicator
-            style={{ marginTop: 100 }}
-            size="large"
-            color="#ff7A00"
-          />
-        ) : (
-          <FlatList
-            data={comments}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("PostDetail", { comment: item })
-                }
-              >
-                <Text>Coucou</Text>
-              </TouchableOpacity>
+          <ScrollView>
+            {isPending ? (
+              <ActivityIndicator
+                style={{ marginTop: 100 }}
+                size="large"
+                color="white"
+              />
+            ) : (
+              <FlatList
+                data={comments}
+                renderItem={({ item }) => <MiniComment comment={item} />}
+              />
             )}
-          />
-        )}
-      </ScrollView>
+          </ScrollView>
+        </View>
+      </View>
+      <AddModal
+        modalVisible={modalVisible}
+        closeModal={closeModal}
+        user={user}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-})
+const PostDetailScreenStyle = () =>
+  StyleSheet.create({
+    page: {
+      flex: 1,
+    },
+    postContainer: {
+      flex: 1,
+    },
+    title: {
+      color: "#20232a",
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    body: {
+      fontSize: 15,
+      marginTop: 16,
+      lineHeight: 22,
+    },
+    buttonContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignSelf: "center",
+      width: "80%",
+    },
+    buttonComment: {
+      backgroundColor: "#FF7A00",
+      borderRadius: 100,
+      height: "40%",
+      justifyContent: "center",
+    },
+    commentContainer: {
+      flex: 3,
+      borderTopRightRadius: 30,
+      borderTopLeftRadius: 30,
+      backgroundColor: "#FF7A00",
+    },
+    commentTitle: {
+      fontSize: 20,
+      alignSelf: "center",
+      color: "white",
+      marginVertical: 24,
+    },
+    buttonText: {
+      textAlign: "center",
+      color: "white",
+    },
+  });

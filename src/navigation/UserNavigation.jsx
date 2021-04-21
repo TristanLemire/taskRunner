@@ -8,7 +8,16 @@ import { Consumer } from "../../App";
 const Stack = createStackNavigator();
 
 export function UserNavigation(props) {
-  const UserNavigationStyleContextual = UserNavigationStyle();
+  const style = UserNavigationStyle();
+
+  const {
+    route: {
+      params: {
+        user,
+        user: { name },
+      },
+    },
+  } = props;
 
   return (
     <Consumer>
@@ -18,13 +27,13 @@ export function UserNavigation(props) {
             name="User"
             component={UserScreen}
             initialParams={{
-              user: props.route.params.user,
+              user: user,
             }}
             options={{
               headerRight: () => (
                 <TouchableOpacity
                   onPress={() => value.onChange(null)}
-                  style={UserNavigationStyleContextual.container}
+                  style={style.container}
                 >
                   <Ionicons
                     name={"ios-exit-outline"}
@@ -33,7 +42,7 @@ export function UserNavigation(props) {
                   />
                 </TouchableOpacity>
               ),
-              title: `${props.route.params.user.name}`,
+              title: `${name}`,
               headerStyle: {
                 backgroundColor: "#ff7A00",
                 shadowRadius: 0,

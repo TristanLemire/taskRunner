@@ -10,28 +10,44 @@ import {
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
+import { UsersMap } from "./Components/UsersMap";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
+import { User } from "../../typing";
 
-export function HomeScreen(props) {
-  const HomeScreenContextual = HomeScreenStyle();
-  const [value, setValue] = useState(null);
-  const [users, setUsers] = useState(null);
+type HomeScreenProps = {
+  users: User[] | null;
+  error: boolean;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  retry: () => void;
+};
+
+export const HomeScreen = (props: HomeScreenProps) => {
+  const style = HomeScreenStyle();
+  const [value, setValue] = useState<string | null>(null);
+  const [users, setUsers] = useState<User[] | null>(null);
 
   useEffect(() => {
     setUsers(props.users);
   }, [props.users]);
 
-  const onChangeSearch = (newVal) => {
+  const onChangeSearch = (newVal: string) => {
+    if (!props.users) {
+      return;
+    }
     newVal === null || newVal === ""
       ? setUsers(props.users)
-      : setUsers(props.users.filter((item) => item.name.includes(newVal)));
+      : setUsers(
+          props.users.filter((item) =>
+            item.name.toLowerCase().includes(newVal.toLowerCase())
+          )
+        );
   };
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={style.droidSafeArea}>
         <ScrollView>
           {props.error && (
             <ErrorMessage
@@ -41,7 +57,7 @@ export function HomeScreen(props) {
               retry={props.retry}
             />
           )}
-          <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
+          <Text style={style.title}>Choisir un utilisateur</Text>
           <SearchBar
             platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme
@@ -61,18 +77,19 @@ export function HomeScreen(props) {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => props.setUser(item)}
-                  style={HomeScreenContextual.container}
+                  style={style.container}
                 >
                   <MiniProfile item={item}></MiniProfile>
                 </TouchableOpacity>
               )}
             />
           )}
+          {users !== null && <UsersMap users={users} />}
         </ScrollView>
       </SafeAreaView>
     </>
   );
-}
+};
 
 const HomeScreenStyle = () =>
   StyleSheet.create({
@@ -86,5 +103,9 @@ const HomeScreenStyle = () =>
     container: {
       margin: 8,
       padding: 8,
+    },
+    droidSafeArea: {
+      flex: 1,
+      paddingTop: Platform.OS === "android" ? 25 : 0,
     },
   });
