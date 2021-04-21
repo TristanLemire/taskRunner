@@ -58,21 +58,45 @@ export function PostScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    justifyContent: "space-evenly",
-    maxHeight: 120,
-  },
-  containerTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  containerText: {
-    fontSize: 14,
-  },
-});
+const PostScreenStyle = () =>
+  StyleSheet.create({
+    page: {
+      flex: 1,
+    },
+    postContainer: {
+      flex: 1,
+      margin: 24,
+    },
+    title: {
+      color: "#20232a",
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    body: {
+      fontSize: 15,
+      marginTop: 16,
+    },
+    buttonContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignSelf: "center",
+      width: "80%",
+    },
+    buttonComment: {
+      backgroundColor: "#FF7A00",
+      borderRadius: 100,
+      height: "40%",
+      justifyContent: "center",
+    },
+    commentContainer: {
+      flex: 3,
+      borderRadius: 30,
+      backgroundColor: "#FF7A00",
+    },
+    commentTitle: {
+      fontSize: 20,
+      alignSelf: "center",
+      color: "white",
+      marginVertical: 24,
+    },
+  });
