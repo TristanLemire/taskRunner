@@ -11,6 +11,7 @@ export function TodoScreen(props) {
 
   const userId = props.route.params.user.id;
 
+
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value);
@@ -27,18 +28,33 @@ export function TodoScreen(props) {
       storeData(todos);
   };
 
-  const getTodo = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('todos')
-        return jsonValue != null ? console.log(JSON.parse(jsonValue)) : null
-      } catch(e) {
-        console.log(e)
-      }
-    }
-
   useEffect(() => {
     postTodo();
   }, [todos]);
+
+  
+  const getTodo = async () => {
+    try {
+      const value = await AsyncStorage.getItem('todos')
+      if(value !== null) {
+        const todoParse = JSON.parse(value);
+        setTodos(todoParse)
+        console.log("value after parse: ", todos)
+      }
+    } catch(e) {
+      console.log("hello")
+    }
+  }
+  
+
+  console.log(getTodo())
+  
+  const todosValidation = () =>{
+    // get les tâches dans le local storage
+    // mettre les tâches du localstorage dans la props data de la flatlist
+    //si une tâche de la flat list est false ou true set clé "completed" à true ou false
+  }
+
 
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -48,7 +64,7 @@ export function TodoScreen(props) {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.checkbox}
-              // onPress={() => {}}
+              onPress={todosValidation}
             >
               <Ionicons
                 name={
