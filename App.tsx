@@ -9,7 +9,7 @@ import { HomeScreen } from "./src/subApps/Home/HomeScreen";
 import { UserNavigation } from "./src/navigation/UserNavigation";
 import { LogBox } from "react-native";
 import { User } from "./src/typing";
-import { COLORS } from "./src/assets/colors";
+import { COLORS, FONTSIZES } from "./src/assets/tokens";
 
 const Tab = createBottomTabNavigator();
 export const { Provider, Consumer } = createContext({});
@@ -97,14 +97,14 @@ export default function App() {
                 },
               })}
               tabBarOptions={{
-                activeTintColor: `${COLORS.brandOrange}`,
-                inactiveTintColor: "#181818",
-                tabStyle: { borderColor: `${COLORS.brandOrange}`, borderTopWidth: 1.5 },
+                activeTintColor: COLORS.primary,
+                inactiveTintColor: COLORS.black,
+                tabStyle: { borderColor: COLORS.primary, borderTopWidth: 1.5 },
                 style: {
                   alignItems: "center",
                 },
                 labelStyle: {
-                  fontSize: 12,
+                  fontSize: FONTSIZES.small,
                 },
               }}
             >

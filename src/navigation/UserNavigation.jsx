@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Consumer } from "../../App";
 
-import { COLORS } from "../assets/colors";
+import { COLORS, SPACES } from "../assets/tokens";
 
 const Stack = createStackNavigator();
 
@@ -40,17 +40,17 @@ export function UserNavigation(props) {
                 >
                   <Ionicons
                     name={"ios-exit-outline"}
-                    size={25}
+                    size={SPACES.large}
                     color={COLORS.white}
                   />
                 </TouchableOpacity>
               ),
               title: `${name}`,
               headerStyle: {
-                backgroundColor: COLORS.brandOrange,
+                backgroundColor: COLORS.primary,
                 shadowRadius: 0,
                 shadowOffset: {
-                  height: 0,
+                  height: SPACES.none,
                 },
               },
               headerTitleStyle: {
@@ -67,6 +67,6 @@ export function UserNavigation(props) {
 const UserNavigationStyle = () =>
   StyleSheet.create({
     container: {
-      marginRight: 24,
+      marginRight: SPACES.large,
     },
   });

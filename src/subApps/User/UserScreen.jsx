@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { COLORS } from "../../assets/colors";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -40,7 +40,7 @@ export const UserScreen = (props) => {
   return (
     <ScrollView style={style.page}>
       <LinearGradient
-        colors={[COLORS.brandOrange, COLORS.OrangeSecond]}
+        colors={[COLORS.primary, COLORS.secondary]}
         style={style.background}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -63,8 +63,8 @@ export const UserScreen = (props) => {
             <Ionicons
               style={style.icon}
               name="mail-outline"
-              size={22}
-              color={COLORS.brandOrange}
+              size={SPACES.large}
+              color={COLORS.primary}
             />
             <Text style={style.text}>{email}</Text>
           </View>
@@ -73,8 +73,8 @@ export const UserScreen = (props) => {
             <Ionicons
               style={style.icon}
               name="location-outline"
-              size={22}
-              color={COLORS.brandOrange}
+              size={SPACES.large}
+              color={COLORS.primary}
             />
             <Text style={style.text}>
               {street} {suite} {city} {zipcode}
@@ -85,8 +85,8 @@ export const UserScreen = (props) => {
             <Ionicons
               style={style.icon}
               name="phone-portrait-outline"
-              size={22}
-              color={COLORS.brandOrange}
+              size={SPACES.large}
+              color={COLORS.primary}
             />
             <Text style={style.text}>{phone}</Text>
           </View>
@@ -95,8 +95,8 @@ export const UserScreen = (props) => {
             <Ionicons
               style={style.icon}
               name="globe-outline"
-              size={22}
-              color={COLORS.brandOrange}
+              size={SPACES.large}
+              color={COLORS.primary}
             />
             <Text style={style.text}>{website}</Text>
           </View>
@@ -138,70 +138,70 @@ const UserScreenStyle = () =>
       flex: 0.5,
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 24,
+      marginTop: SPACES.large,
     },
     titleName: {
       flex: 1,
-      margin: 8,
-      fontSize: 16,
+      margin: SPACES.default,
+      fontSize: FONTSIZES.default,
       fontWeight: "bold",
     },
     section: {
-      alignItems: "center",
-      margin: 16,
       flex: 1,
+      alignItems: "center",
+      margin: SPACES.xdefault,
     },
     sectionMap: {
       alignItems: "center",
-      marginTop: 16,
+      marginTop: SPACES.default,
     },
     titleSection: {
-      marginBottom: 16,
+      marginBottom: SPACES.default,
       textDecorationLine: "underline",
       textTransform: "uppercase",
-      fontSize: 16,
+      fontSize: FONTSIZES.default,
       color: COLORS.white,
       fontWeight: "300",
     },
     box: {
       flex: 1,
-      padding: 24,
-      paddingBottom: 8,
+      padding: SPACES.large,
+      paddingBottom: SPACES.default,
       justifyContent: "space-between",
       backgroundColor: COLORS.white,
       borderRadius: 8,
       width: Dimensions.get("window").width / 1.1,
     },
     compagny: {
-      padding: 24,
+      padding: SPACES.large,
       backgroundColor: COLORS.white,
       borderRadius: 8,
       width: Dimensions.get("window").width / 1.1,
       alignItems: "center",
     },
     compagnyTitle: {
-      marginBottom: 16,
-      fontSize: 16,
+      marginBottom: SPACES.xdefault,
+      fontSize: FONTSIZES.default,
       fontWeight: "bold",
       color: COLORS.black,
     },
     compagnyInfo: {
-      marginBottom: 16,
-      fontSize: 14,
+      marginBottom: SPACES.xdefault,
+      fontSize: FONTSIZES.default,
       color: COLORS.black,
       fontStyle: "italic",
     },
     compagnyBs: {
-      fontSize: 14,
+      fontSize: FONTSIZES.default,
       color: COLORS.grey,
     },
     textWithIcon: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 16,
+      marginBottom: SPACES.xdefault,
     },
     icon: {
-      marginRight: 12,
+      marginRight: SPACES.xdefault,
     },
     text: {
       flex: 1,
@@ -209,9 +209,9 @@ const UserScreenStyle = () =>
     },
     background: {
       position: "absolute",
-      left: 0,
-      right: 0,
-      top: 0,
+      left: SPACES.none,
+      right: SPACES.none,
+      top: SPACES.none,
       height: windowHeight,
     },
   });
