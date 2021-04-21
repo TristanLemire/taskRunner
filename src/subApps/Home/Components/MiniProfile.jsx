@@ -8,7 +8,6 @@ export function MiniProfile(props) {
 
   return (
     <ListItem bottomDivider pad={16}>
-      {/* {console.log(item)} */}
       <Avatar
         rounded
         containerStyle={{ backgroundColor: "#BDBDBD" }}

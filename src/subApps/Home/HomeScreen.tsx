@@ -27,8 +27,6 @@ export function HomeScreen(props: HomeScreenProps) {
   const [value, setValue] = useState<string | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
 
-  console.log(props);
-
   useEffect(() => {
     setUsers(props.users);
   }, [props.users]);
@@ -39,7 +37,11 @@ export function HomeScreen(props: HomeScreenProps) {
     }
     newVal === null || newVal === ""
       ? setUsers(props.users)
-      : setUsers(props.users.filter((item) => item.name.includes(newVal)));
+      : setUsers(
+          props.users.filter((item) =>
+            item.name.toLowerCase().includes(newVal.toLowerCase())
+          )
+        );
   };
 
   return (
