@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
+import { UsersMap } from "./Components/UsersMap";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
@@ -83,6 +84,9 @@ export function HomeScreen(props: HomeScreenProps) {
               )}
             />
           )}
+          {users !== null && 
+            <UsersMap data={users} />
+          }
         </ScrollView>
       </SafeAreaView>
     </>
