@@ -46,7 +46,6 @@ export function PostScreen(props) {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => navigation.navigate("PostDetail", { post: item })}
-              style={styles.container}
             >
               <MiniPost post={item} />
             </TouchableOpacity>

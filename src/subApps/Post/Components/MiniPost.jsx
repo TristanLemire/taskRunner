@@ -5,18 +5,20 @@ import { ListItem } from "react-native-elements";
 export function MiniPost(props) {
   const style = MiniPostStyle();
 
+  const {
+    post: { body, title },
+  } = props;
+  console.log("body", body);
+
   return (
     <ListItem bottomDivider pad={16}>
-      <ListItem.Content>
+      <ListItem.Content style={style.container}>
         <ListItem.Title>
-          <Text style={style.userName}>Lorem dolor ipsum</Text>
+          <Text style={style.title}>{title}</Text>
         </ListItem.Title>
 
         <ListItem.Subtitle style={style.subtitle}>
-          <Text style={style.userEmail}>
-            ullam et saepe reiciendis voluptatem adipisci\nsit amet autem
-            assumenda provident rerum...
-          </Text>
+          <Text style={style.body}>{body}</Text>
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>
@@ -25,7 +27,11 @@ export function MiniPost(props) {
 
 const MiniPostStyle = () =>
   StyleSheet.create({
-    userName: {
+    container: {
+      marginVertical: 16,
+      marginHorizontal: 8,
+    },
+    title: {
       color: "#20232a",
       fontSize: 15,
       fontWeight: "bold",
@@ -33,7 +39,7 @@ const MiniPostStyle = () =>
     subtitle: {
       paddingTop: 8,
     },
-    userEmail: {
+    body: {
       fontSize: 12,
     },
   });
