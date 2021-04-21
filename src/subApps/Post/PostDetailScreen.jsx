@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { ListItem } from "react-native-elements";
+import { MiniComment } from "./Components/MiniComment";
 
 export function PostDetailScreen(props) {
   const {
@@ -71,15 +72,7 @@ export function PostDetailScreen(props) {
         ) : (
           <FlatList
             data={comments}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("PostDetail", { comment: item })
-                }
-              >
-                <Text>Coucou</Text>
-              </TouchableOpacity>
-            )}
+            renderItem={({ item }) => <MiniComment comment={item} />}
           />
         )}
       </ScrollView>

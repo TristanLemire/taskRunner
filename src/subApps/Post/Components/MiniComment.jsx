@@ -2,20 +2,21 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { ListItem } from "react-native-elements";
 
-export function MiniPost(props) {
-  const style = MiniPostStyle();
+export function MiniComment(props) {
+  const style = MiniCommentStyle();
 
   const {
-    post: { body, title },
+    comment: { body, name, email },
   } = props;
+  console.log("body", body);
 
   return (
     <ListItem bottomDivider pad={16}>
       <ListItem.Content style={style.container}>
         <ListItem.Title>
-          <Text style={style.title}>{title}</Text>
+          <Text style={style.title}>{name}</Text>
         </ListItem.Title>
-
+        <Text>{email}</Text>
         <ListItem.Subtitle style={style.subtitle}>
           <Text style={style.body}>{body}</Text>
         </ListItem.Subtitle>
@@ -24,7 +25,7 @@ export function MiniPost(props) {
   );
 }
 
-const MiniPostStyle = () =>
+const MiniCommentStyle = () =>
   StyleSheet.create({
     container: {
       marginVertical: 16,
