@@ -10,9 +10,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import { MiniComment } from "./Components/MiniComment";
+import { MiniComment } from "./Components/MiniComment";[]
 
 import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
+import { AddCommentModal } from "./Components/CommentModal";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();
@@ -21,28 +23,113 @@ export function PostDetailScreen(props) {
     route: {
       params: {
         post: { id: postId, body, title },
+        user
       },
     },
   } = props;
 
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState([]);
   const [isPending, setIsPending] = useState(false);
-
-  const getComments = () => {
-    fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
-      .then((response) => response.json())
-      .then((json) => {
-        setComments(
-          json.filter((item) => item.postId === props.route.params.post.id)
-        );
-        setIsPending(false);
-      });
-  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const userMail = user.email;
+  const [commentsLength, setCommentsLength] = useState(null);
+  const [commentsApi, setCommentsApi] = useState([]);
 
   useEffect(() => {
     setIsPending(true);
-    getComments();
+    async function callAwait() {
+      await getComments();
+    }
+    callAwait();
   }, []);
+
+  console.log('comments', comments);
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const getComments = async () => {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+    const comments = await response.json();
+    setCommentsApi(comments);
+    const responseLength = await fetch(`https://jsonplaceholder.typicode.com/comments`)
+    const commentsLength = await responseLength.json();
+    setCommentsLength(commentsLength.length)
+    const filteredComments = await getLocalStorageComments();
+    setComments([...filteredComments, ...comments]);
+    setIsPending(false);
+  };
+
+  const getLocalStorageComments = async () => {
+    try {
+      var localStorageComments = await AsyncStorage.getItem('comments');
+      localStorageComments = JSON.parse(localStorageComments)
+
+      if (localStorageComments === null) return [];
+
+      setCommentsLength(localStorageComments[0].id)
+      const filteredComments = localStorageComments.filter( (comment) => {
+        return comment.postId === postId; 
+      });
+
+      console.log('localStorageComments', filteredComments);
+      return filteredComments;
+
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  const clearAppData = async function() {
+    try {
+        const keys = await AsyncStorage.getAllKeys();
+        await AsyncStorage.multiRemove(keys);
+        console.log('data cleared')
+    } catch (error) {
+        console.error('Error clearing app data.');
+    }
+  }
+
+  console.log(commentsLength);
+
+  const saveComment = async (commentBody, commentTitle) => {
+    const comment = {
+      "body" : commentBody,
+      "email" : userMail,
+      "id": commentsLength + 1,
+      "name": commentTitle,
+      "postId": postId
+    }
+    try {
+      var localStorageComments = await AsyncStorage.getItem('comments');
+
+      if(localStorageComments !== null) {
+        localStorageComments = JSON.parse(localStorageComments);
+        console.log('jsonLocalStorageComments', localStorageComments);
+
+        localStorageComments.unshift(comment);
+
+      } else {
+        localStorageComments = [];
+        localStorageComments.unshift(comment);
+      }
+      const jsonComment = JSON.stringify(localStorageComments);
+      await AsyncStorage.setItem('comments', jsonComment);
+
+      const filteredComments = localStorageComments.filter( (comment) => {
+        return comment.postId === postId; 
+      });
+      setComments([...filteredComments, ...commentsApi]);
+      setCommentsLength(commentsLength + 1);
+      closeModal();
+
+    } catch(e) {
+      console.log(e)
+    }
+    localStorageComments = await AsyncStorage.getItem('comments')
+    console.log('Comments', localStorageComments);
+  }
 
   return (
     <View style={style.page}>
@@ -53,7 +140,10 @@ export function PostDetailScreen(props) {
         </View>
 
         <View style={style.buttonContainer}>
-          <TouchableOpacity style={style.buttonComment}>
+          <TouchableOpacity
+            style={style.buttonComment}
+            onPress={() => setModalVisible(true)}
+          >
             <Text style={style.buttonText}>AJOUTER UN COMMENTAIRE</Text>
           </TouchableOpacity>
         </View>
@@ -76,6 +166,11 @@ export function PostDetailScreen(props) {
           </ScrollView>
         </View>
       </View>
+      <AddCommentModal
+        modalVisible={modalVisible}
+        closeModal={closeModal}
+        saveComment={saveComment}
+      />
     </View>
   );
 }
