@@ -9,35 +9,11 @@ import {
   Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const AddModal = ({ modalVisible, closeModal, user }) => {
+export const AddModal = ({ modalVisible, closeModal, saveComment }) => {
   const AddModalStyleContextual = AddModalStyle();
   const [commentTitle, setCommentTitle] = useState(null);
   const [commentBody, setCommentBody] = useState(null);
-  const userMail = user.email;
-  const userId = user.id;
-
-  AddComment = async () => {
-    console.log('commentTitle', commentTitle)
-    console.log('commentBody', commentBody)
-    const comment = {
-      "body" : commentBody,
-      "email" : userMail,
-      "id": userId,
-      "name": commentTitle,
-      "postId": 1
-    }
-    try {
-      const jsonComment = JSON.stringify(comment);
-      await AsyncStorage.setItem('comments', jsonComment)
-      const localStorageComments = await AsyncStorage.getItem('comments')
-      console.log('localStorageComments', localStorageComments);
-    } catch(e) {
-      console.log(e)
-    }
-    console.log('Commentaire posté')
-  }
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
@@ -59,7 +35,6 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
           <Text style={AddModalStyleContextual.title}>
             AJOUTER UN COMMENTAIRE
           </Text>
-          {/* <Text>{commentTitle} et {commentBody}</Text> */}
           <View style={AddModalStyleContextual.input}>
             <Text style={AddModalStyleContextual.inputTitle}>Titre</Text>
             <TextInput
@@ -84,9 +59,11 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
           </View>
           <TouchableOpacity
             style={AddModalStyleContextual.button}
-            onPress={() =>
-              AddComment()
-            }
+            onPress={() => {
+              saveComment(commentBody, commentTitle),
+              setCommentTitle(null),
+              setCommentBody(null)
+            }}
           >
             <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
           </TouchableOpacity>
