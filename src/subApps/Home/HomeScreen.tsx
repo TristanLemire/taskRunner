@@ -100,7 +100,6 @@ const HomeScreenStyle = () =>
       textAlign: "center",
       fontSize: FONTSIZES.xlarge,
       fontWeight: "bold",
-      fontFamily: "Montserrat, sans-serif",
     },
     container: {
       margin: SPACES.default,

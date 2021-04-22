@@ -55,7 +55,6 @@ export function UserNavigation(props) {
                 },
               },
               headerTitleStyle: {
-                fontFamily: "Montserrat, sans-serif",
                 color: COLORS.white,
               },
             }}

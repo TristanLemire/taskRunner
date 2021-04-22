@@ -26,7 +26,6 @@ export function AlbumNavigation(props) {
             backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            fontFamily: "Montserrat, sans-serif",
             color: COLORS.white,
           },
         }}
@@ -40,7 +39,6 @@ export function AlbumNavigation(props) {
             backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            fontFamily: "Montserrat, sans-serif",
             color: COLORS.white,
           },
         }}

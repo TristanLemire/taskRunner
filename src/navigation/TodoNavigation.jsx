@@ -25,7 +25,6 @@ export function TodoNavigation(props) {
             backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            fontFamily: "Montserrat, sans-serif",
             color: COLORS.white,
           },
         }}
