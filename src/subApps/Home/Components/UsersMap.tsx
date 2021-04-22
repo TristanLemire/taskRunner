@@ -22,8 +22,9 @@ export const UsersMap = (props: UsersMapProps) => {
             longitudeDelta: 20,
           }}
         >
-          {props.users.map((user) => (
+          {props.users.map((user, key) => (
             <Marker
+              key={key}
               coordinate={{
                 latitude: parseInt(user.address.geo.lat, 10),
                 longitude: parseInt(user.address.geo.lng, 10),
