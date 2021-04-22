@@ -48,12 +48,14 @@ export function UserNavigation(props) {
               title: `${name}`,
               headerStyle: {
                 backgroundColor: COLORS.primary,
+
                 shadowRadius: 0,
                 shadowOffset: {
                   height: SPACES.none,
                 },
               },
               headerTitleStyle: {
+                fontFamily: "Montserrat, sans-serif",
                 color: COLORS.white,
               },
             }}

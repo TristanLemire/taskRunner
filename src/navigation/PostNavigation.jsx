@@ -27,6 +27,7 @@ export function PostNavigation(props) {
             backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
+            fontFamily: "Montserrat, sans-serif",
             color: COLORS.white,
           },
         }}
@@ -41,6 +42,7 @@ export function PostNavigation(props) {
             backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
+            fontFamily: "Montserrat, sans-serif",
             color: COLORS.white,
           },
         }}
