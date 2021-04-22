@@ -9,12 +9,35 @@ import {
   Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AddModal = ({ modalVisible, closeModal, user }) => {
   const AddModalStyleContextual = AddModalStyle();
-  const [title, setTitle] = useState(null);
-  const [comment, setComment] = useState(null);
+  const [commentTitle, setCommentTitle] = useState(null);
+  const [commentBody, setCommentBody] = useState(null);
   const userMail = user.email;
+  const userId = user.id;
+
+  AddComment = async () => {
+    console.log('commentTitle', commentTitle)
+    console.log('commentBody', commentBody)
+    const comment = {
+      "body" : commentBody,
+      "email" : userMail,
+      "id": userId,
+      "name": commentTitle,
+      "postId": 1
+    }
+    try {
+      const jsonComment = JSON.stringify(comment);
+      await AsyncStorage.setItem('comments', jsonComment)
+      const localStorageComments = await AsyncStorage.getItem('comments')
+      console.log('localStorageComments', localStorageComments);
+    } catch(e) {
+      console.log(e)
+    }
+    console.log('Commentaire posté')
+  }
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
@@ -23,7 +46,7 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
           <TouchableOpacity
             style={AddModalStyleContextual.clodeButton}
             onPress={() => {
-              setTitle(null), setComment(null), closeModal();
+              setCommentTitle(null), setCommentBody(null), closeModal();
             }}
           >
             <Ionicons
@@ -36,13 +59,14 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
           <Text style={AddModalStyleContextual.title}>
             AJOUTER UN COMMENTAIRE
           </Text>
+          {/* <Text>{commentTitle} et {commentBody}</Text> */}
           <View style={AddModalStyleContextual.input}>
             <Text style={AddModalStyleContextual.inputTitle}>Titre</Text>
             <TextInput
               style={AddModalStyleContextual.inputText}
-              onChangeText={(value) => setTitle(value)}
-              value={title}
-              placeholder={"titre de cummentaire"}
+              onChangeText={(value) => setCommentTitle(value)}
+              value={commentTitle}
+              placeholder={"titre du commentaire"}
             />
           </View>
           <View style={AddModalStyleContextual.input}>
@@ -53,15 +77,15 @@ export const AddModal = ({ modalVisible, closeModal, user }) => {
               multiline={true}
               numberOfLines={3}
               style={AddModalStyleContextual.textArea}
-              onChangeText={(value) => setComment(value)}
-              value={comment}
-              placeholder={"titre de cummentaire"}
+              onChangeText={(value) => setCommentBody(value)}
+              value={commentBody}
+              placeholder={"ecris ton commentaire ici"}
             />
           </View>
           <TouchableOpacity
             style={AddModalStyleContextual.button}
             onPress={() =>
-              console.log("ici faire le post du comment en localstorage")
+              AddComment()
             }
           >
             <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
@@ -82,6 +106,7 @@ const AddModalStyle = () =>
     inputText: {
       borderBottomWidth: 1,
       borderColor: "#ff7a00",
+      alignSelf: "stretch",
     },
     modalContainer: {
       backgroundColor: "white",
@@ -128,46 +153,5 @@ const AddModalStyle = () =>
       position: "absolute",
       right: -13,
       top: -13,
-    },
-    // centeredView: {
-    //   flex: 1,
-    //   justifyContent: "center",
-    //   alignItems: "center",
-    //   marginTop: 22,
-    // },
-    // modalView: {
-    //   margin: 20,
-    //   backgroundColor: "white",
-    //   borderRadius: 20,
-    //   padding: 35,
-    //   alignItems: "center",
-    //   shadowColor: "#000",
-    //   shadowOffset: {
-    //     width: 0,
-    //     height: 2,
-    //   },
-    //   shadowOpacity: 0.25,
-    //   shadowRadius: 4,
-    //   elevation: 5,
-    // },
-    // button: {
-    //   borderRadius: 20,
-    //   padding: 10,
-    //   elevation: 2,
-    // },
-    // buttonOpen: {
-    //   backgroundColor: "#F194FF",
-    // },
-    // buttonClose: {
-    //   backgroundColor: "#2196F3",
-    // },
-    // modalClose: {
-    //   color: "white",
-    //   fontWeight: "bold",
-    //   textAlign: "center",
-    // },
-    // modalText: {
-    //   marginBottom: 15,
-    //   textAlign: "center",
-    // },
+    }
   });

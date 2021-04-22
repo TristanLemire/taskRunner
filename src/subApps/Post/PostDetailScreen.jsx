@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { MiniComment } from "./Components/MiniComment";
 import { AddModal } from "../../components/Modal/Modal";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();
@@ -28,6 +29,8 @@ export function PostDetailScreen(props) {
   const [isPending, setIsPending] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  console.log('comments', comments);
+
   const closeModal = () => {
     setModalVisible(false);
   };
@@ -41,8 +44,19 @@ export function PostDetailScreen(props) {
         );
         setIsPending(false);
       });
+    getLocalStorageComments();
   };
 
+  const getLocalStorageComments = async () => {
+    try {
+      const localStorageComments = await AsyncStorage.getItem('comments')
+      // console.log('localStorageComments', localStorageComments);
+      setComments(...localStorageComments)
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  
   useEffect(() => {
     setIsPending(true);
     getComments();
