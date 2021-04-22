@@ -1,37 +1,37 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
 import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
-export function MiniProfile(props) {
-  const style = MiniProfileStyle();
+export function MiniPost(props) {
+  const style = MiniPostStyle();
+
   const {
-    item: { image, name, email },
+    post: { body, title },
   } = props;
 
   return (
     <ListItem bottomDivider pad={16}>
-      <Avatar
-        rounded
-        containerStyle={{ backgroundColor: `${COLORS.grey}` }}
-        size="medium"
-        source={{ uri: image }}
-      />
-      <ListItem.Content>
+      <ListItem.Content style={style.container}>
         <ListItem.Title>
-          <Text style={style.userName}>{name}</Text>
+          <Text style={style.title}>{title}</Text>
         </ListItem.Title>
+
         <ListItem.Subtitle style={style.subtitle}>
-          <Text style={style.userEmail}>{email}</Text>
+          <Text style={style.body}>{body}</Text>
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>
   );
 }
 
-const MiniProfileStyle = () =>
+const MiniPostStyle = () =>
   StyleSheet.create({
-    userName: {
+    container: {
+      marginVertical: SPACES.xdefault,
+      marginHorizontal: SPACES.default,
+    },
+    title: {
       color: COLORS.black,
       fontSize: FONTSIZES.default,
       fontWeight: "bold",
@@ -39,7 +39,7 @@ const MiniProfileStyle = () =>
     subtitle: {
       paddingTop: SPACES.default,
     },
-    userEmail: {
+    body: {
       fontSize: FONTSIZES.small,
     },
   });
