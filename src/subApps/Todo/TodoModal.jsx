@@ -10,10 +10,9 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export const TodoModal = ({ modalVisible, closeModal, user }) => {
+export const TodoModal = ({ modalVisible, closeModal, onValidate }) => {
   const AddModalStyleContextual = AddModalStyle();
   const [name, setName] = useState(null);
-  const userMail = user;
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
@@ -43,9 +42,9 @@ export const TodoModal = ({ modalVisible, closeModal, user }) => {
           </View>
           <TouchableOpacity
             style={AddModalStyleContextual.button}
-            onPress={() =>
-              console.log("ici faire le post du todo en localstorage")
-            }
+            onPress={() => {
+              onValidate(name), setName(null), closeModal();
+            }}
           >
             <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
           </TouchableOpacity>

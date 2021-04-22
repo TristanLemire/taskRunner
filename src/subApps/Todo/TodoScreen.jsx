@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView, FlatList } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TodoModal } from "./TodoModal";
-
+import { COLORS } from "../../assets/tokens";
+import { useScrollToTop } from "@react-navigation/native";
 
 export function TodoScreen(props) {
   const [todos, setTodos] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isPushed, setIsPushed] = useState(false);
+  const [isPending, setIsPending] = useState(true);
+  const listRef = useRef();
 
   const userId = props.route.params.user.id;
 
@@ -20,7 +29,7 @@ export function TodoScreen(props) {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("todos", jsonValue);
     } catch (e) {
-      console.log(error);
+      console.log(e);
     }
   };
 
@@ -29,7 +38,7 @@ export function TodoScreen(props) {
       const jsonValue = await AsyncStorage.getItem("todos");
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-      console.log("hello");
+      console.log(e);
     }
   };
 
@@ -44,62 +53,97 @@ export function TodoScreen(props) {
     getLocalTodo().then((response) => {
       if (response !== null) {
         setTodos(response);
+        setIsPushed(false);
+        setIsPending(false);
       } else {
         getApiTodos();
+        setIsPushed(false);
+        setIsPending(false);
       }
     });
   };
 
   useEffect(() => {
-    syncTodos();
-  }, [todos]);
-  
-  const todosValidation = (item) => {
-    getLocalTodo().then((todosStorage) => {
-    for (let i = 0; i < todosStorage.length; i++) {
-      if(todosStorage[i].id === item.id) {
-        if(item.completed === false){
-          todosStorage[i].completed = true;
-          storeData(todosStorage[i])
-          setIsPushed(true);
-          console.log("item validation: ", todosStorage[i])
-        } else{
-          todosStorage[i].completed = false;
-          storeData(todosStorage[i])
-          setIsPushed(true);
-          console.log("item validation: ", todosStorage[i])
-
-        }
-      } 
-    }
-    });
-    
-  };
-
-  useEffect(() => {
     if (isPushed) {
       syncTodos();
-      setIsPushed(false);
     }
   }, [isPushed]);
 
+  useEffect(() => {
+    syncTodos();
+  }, []);
 
-  return (
-    <View style={{ backgroundColor: "white" }}>
-      <ScrollView>
+  const todosValidation = async (item) => {
+    todos.map((todo) => {
+      if (todo === item) {
+        todo.completed ? (todo.completed = false) : (todo.completed = true);
+      }
+    });
+    const jsonValue = JSON.stringify(todos);
+    try {
+      await AsyncStorage.setItem("todos", jsonValue);
+
+      setIsPushed(true);
+    } catch (e) {
+      setIsPushed(true);
+    }
+  };
+
+  const createTodo = async (title) => {
+    const newTodo = [
+      {
+        completed: false,
+        id:
+          Math.max.apply(
+            Math,
+            todos.map((item) => {
+              return item.id;
+            })
+          ) + 1,
+        title: title,
+        userId: userId,
+      },
+    ];
+    const newTodos = newTodo.concat(todos);
+    const jsonValue = JSON.stringify(newTodos);
+    try {
+      await AsyncStorage.setItem("todos", jsonValue);
+      listRef.current.scrollToOffset({ animated: true });
+      setIsPushed(true);
+    } catch (e) {
+      console.log(e);
+      setIsPushed(true);
+    }
+  };
+
+  if (isPending) {
+    return (
+      <ActivityIndicator
+        style={{ marginTop: 100 }}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
+  } else {
+    return (
+      <View style={{ backgroundColor: "white" }}>
         <FlatList
+          ref={listRef}
           data={todos}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.checkbox} onPress={() =>{
-              todosValidation(item);
-              }}>
+            <TouchableOpacity
+              style={styles.checkbox}
+              onPress={() => {
+                todosValidation(item);
+              }}
+            >
               <Ionicons
                 name={
                   item.completed
                     ? "ios-checkmark-circle"
                     : "ios-ellipse-outline"
                 }
-                size={35}
+                size={45}
                 color={item.completed ? "#95DC2E" : "#dddddd"}
                 style={{ marginRight: 5 }}
               />
@@ -115,28 +159,28 @@ export function TodoScreen(props) {
             </TouchableOpacity>
           )}
         />
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        <Button
-          buttonStyle={styles.addButton}
-          icon={
-            <Icon
-              name="pluscircle"
-              size={40}
-              color="white"
-              style={styles.addIcon}
-            />
-          }
-          onPress={() => setIsVisible(true)}
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonStyle={styles.addButton}
+            icon={
+              <Icon
+                name="pluscircle"
+                size={40}
+                color="white"
+                style={styles.addIcon}
+              />
+            }
+            onPress={() => setIsVisible(true)}
+          />
+        </View>
+        <TodoModal
+          modalVisible={isVisible}
+          closeModal={() => setIsVisible(false)}
+          onValidate={createTodo}
         />
       </View>
-      <TodoModal
-        modalVisible={isVisible}
-        closeModal={() => setIsVisible(false)}
-        user={props.route.params.user}
-      />
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -164,7 +208,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderBottomColor: "#dddddd",
     borderBottomWidth: 1,
-    padding: 10,
+    padding: 20,
     alignItems: "center",
   },
 });

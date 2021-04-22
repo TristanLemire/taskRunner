@@ -4,7 +4,6 @@ import { CheckBox } from "react-native-elements";
 
 export function TodoList(props) {
   const [checked, setChecked] = useState(false);
-  console.log("props", props.todoTitle);
 
   return (
     <CheckBox

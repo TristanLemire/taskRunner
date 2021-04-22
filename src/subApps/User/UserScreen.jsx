@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
-// import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { Avatar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView } from "react-native-gesture-handler";
@@ -123,7 +123,7 @@ export const UserScreen = (props) => {
           }}
         >
           <Marker coordinate={{ latitude: latitude, longitude: longitude }} />
-        </MapView> 
+        </MapView>
       </View>
     </ScrollView>
   );
