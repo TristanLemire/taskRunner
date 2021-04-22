@@ -6,9 +6,10 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
 export function TodoScreen(props) {
   const [todos, setTodos] = useState(null);
-  // const [isPushed, setIsPushed] = useState(false);
+  const [isPushed, setIsPushed] = useState(false);
 
   const userId = props.route.params.user.id;
 
@@ -40,34 +41,46 @@ export function TodoScreen(props) {
   const syncTodos = () => {
     getLocalTodo().then((response) => {
       if (response !== null) {
-        console.log("1");
         setTodos(response);
       } else {
         getApiTodos();
-        console.log("2");
       }
     });
   };
 
   useEffect(() => {
     syncTodos();
-  }, []);
+  }, [todos]);
+  
+  const todosValidation = (item) => {
+    getLocalTodo().then((todosStorage) => {
+    for (let i = 0; i < todosStorage.length; i++) {
+      if(todosStorage[i].id === item.id) {
+        if(item.completed === false){
+          todosStorage[i].completed = true;
+          storeData(todosStorage[i])
+          setIsPushed(true);
+          console.log("item validation: ", todosStorage[i])
+        } else{
+          todosStorage[i].completed = false;
+          storeData(todosStorage[i])
+          setIsPushed(true);
+          console.log("item validation: ", todosStorage[i])
 
-  // useEffect(() => {
-  //   if (isPushed) {
-  //     syncTodos();
-  //     setIsPushed(false);
-  //   }
-  // }, [isPushed]);
-
-  console.log(todos);
-
-  const todosValidation = () => {
-    // get les tâches dans le local storage
-    // mettre les tâches du localstorage dans la props data de la flatlist
-    //si une tâche de la flat list est false ou true set clé "completed" à true ou false
-    // setIsPushed(true);
+        }
+      } 
+    }
+    });
+    
   };
+
+  useEffect(() => {
+    if (isPushed) {
+      syncTodos();
+      setIsPushed(false);
+    }
+  }, [isPushed]);
+
 
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -75,7 +88,9 @@ export function TodoScreen(props) {
         <FlatList
           data={todos}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.checkbox} onPress={todosValidation}>
+            <TouchableOpacity style={styles.checkbox} onPress={() =>{
+              todosValidation(item);
+              }}>
               <Ionicons
                 name={
                   item.completed
