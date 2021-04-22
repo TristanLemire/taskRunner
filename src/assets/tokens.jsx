@@ -4,7 +4,9 @@ export const COLORS = {
   white: "#fff",
   black: "#333333",
   grey: "#8D8B8B",
+  lightGrey: "#cccccc",
   error: "#FF9494",
+  validateGreen: "#95DC2E",
 };
 
 export const FONTSIZES = {

@@ -13,7 +13,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TodoModal } from "./TodoModal";
 import { COLORS } from "../../assets/tokens";
-import { useScrollToTop } from "@react-navigation/native";
 
 export function TodoScreen(props) {
   const [todos, setTodos] = useState(null);
@@ -24,19 +23,36 @@ export function TodoScreen(props) {
 
   const userId = props.route.params.user.id;
 
-  const storeData = async (value) => {
+  const storeData = async (todos) => {
     try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("todos", jsonValue);
+      const key = userId;
+      const object = {};
+      object[key] = todos;
+      const respAllTodos = await AsyncStorage.getItem("AllTodos");
+      const allTodos = JSON.parse(respAllTodos);
+      if (allTodos === null) {
+        const createAllTodos = JSON.stringify(object);
+        await AsyncStorage.setItem("AllTodos", createAllTodos);
+      } else {
+        const newAllTodos = JSON.stringify(Object.assign(allTodos, object));
+        await AsyncStorage.setItem("AllTodos", newAllTodos);
+      }
     } catch (e) {
       console.log(e);
     }
+    setTodos(todos);
+    setIsPending(false);
   };
 
   const getLocalTodo = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem("todos");
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      const jsonValue = await AsyncStorage.getItem("AllTodos");
+      const allTodos = jsonValue != null ? JSON.parse(jsonValue) : null;
+      if (allTodos !== null && allTodos[userId]) {
+        return allTodos[userId];
+      } else {
+        return null;
+      }
     } catch (e) {
       console.log(e);
     }
@@ -45,44 +61,23 @@ export function TodoScreen(props) {
   const getApiTodos = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`)
       .then((response) => response.json())
-      .then((json) => setTodos(json));
-    storeData(todos);
+      .then((json) => {
+        storeData(json);
+      });
   };
-
-  const syncTodos = () => {
-    getLocalTodo().then((response) => {
-      if (response !== null) {
-        setTodos(response);
-        setIsPushed(false);
-        setIsPending(false);
-      } else {
-        getApiTodos();
-        setIsPushed(false);
-        setIsPending(false);
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (isPushed) {
-      syncTodos();
-    }
-  }, [isPushed]);
-
-  useEffect(() => {
-    syncTodos();
-  }, []);
 
   const todosValidation = async (item) => {
-    todos.map((todo) => {
-      if (todo === item) {
+    const respAllTodos = await AsyncStorage.getItem("AllTodos");
+    const allTodos = JSON.parse(respAllTodos);
+
+    allTodos[userId].map((todo) => {
+      if (todo.id === item.id) {
         todo.completed ? (todo.completed = false) : (todo.completed = true);
       }
     });
-    const jsonValue = JSON.stringify(todos);
+    const jsonValue = JSON.stringify(allTodos);
     try {
-      await AsyncStorage.setItem("todos", jsonValue);
-
+      await AsyncStorage.setItem("AllTodos", jsonValue);
       setIsPushed(true);
     } catch (e) {
       setIsPushed(true);
@@ -104,10 +99,15 @@ export function TodoScreen(props) {
         userId: userId,
       },
     ];
-    const newTodos = newTodo.concat(todos);
-    const jsonValue = JSON.stringify(newTodos);
+
+    const respAllTodos = await AsyncStorage.getItem("AllTodos");
+    const allTodos = JSON.parse(respAllTodos);
+
+    const newTodos = newTodo.concat(allTodos[userId]);
+    allTodos[userId] = newTodos;
+
     try {
-      await AsyncStorage.setItem("todos", jsonValue);
+      await AsyncStorage.setItem("AllTodos", JSON.stringify(allTodos));
       listRef.current.scrollToOffset({ animated: true });
       setIsPushed(true);
     } catch (e) {
@@ -116,6 +116,27 @@ export function TodoScreen(props) {
     }
   };
 
+  const syncTodos = () => {
+    getLocalTodo().then((response) => {
+      if (response === null) {
+        getApiTodos();
+      } else {
+        setTodos(response);
+        setIsPending(false);
+        setIsPushed(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    syncTodos();
+  }, []);
+
+  useEffect(() => {
+    if (isPushed) {
+      syncTodos();
+    }
+  }, [isPushed]);
   if (isPending) {
     return (
       <ActivityIndicator
@@ -144,14 +165,17 @@ export function TodoScreen(props) {
                     : "ios-ellipse-outline"
                 }
                 size={45}
-                color={item.completed ? "#95DC2E" : "#dddddd"}
+                color={item.completed ? COLORS.validateGreen : COLORS.lightGrey}
                 style={{ marginRight: 5 }}
               />
               <Text
                 style={
                   item.completed
-                    ? { textDecorationLine: "line-through", color: "#c7c7c7" }
-                    : { color: "#181818" }
+                    ? {
+                        textDecorationLine: "line-through",
+                        color: COLORS.lightGrey,
+                      }
+                    : { color: COLORS.black }
                 }
               >
                 {item.title}
@@ -176,6 +200,7 @@ export function TodoScreen(props) {
         <TodoModal
           modalVisible={isVisible}
           closeModal={() => setIsVisible(false)}
+          // onValidate={createTodo}
           onValidate={createTodo}
         />
       </View>
@@ -185,10 +210,10 @@ export function TodoScreen(props) {
 
 const styles = StyleSheet.create({
   addIcon: {
-    color: "#FF7A00",
+    color: COLORS.primary,
   },
   addButton: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 50,
     margin: 0,
     padding: 0,
@@ -206,7 +231,7 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     flexDirection: "row",
-    borderBottomColor: "#dddddd",
+    borderBottomColor: COLORS.lightGrey,
     borderBottomWidth: 1,
     padding: 20,
     alignItems: "center",

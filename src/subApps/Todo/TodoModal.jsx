@@ -9,10 +9,12 @@ import {
   Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { COLORS } from "../../assets/tokens";
 
 export const TodoModal = ({ modalVisible, closeModal, onValidate }) => {
   const AddModalStyleContextual = AddModalStyle();
   const [name, setName] = useState(null);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
@@ -21,14 +23,14 @@ export const TodoModal = ({ modalVisible, closeModal, onValidate }) => {
           <TouchableOpacity
             style={AddModalStyleContextual.clodeButton}
             onPress={() => {
-              setName(null), closeModal();
+              setName(null), setIsEmpty(false), closeModal();
             }}
           >
             <Ionicons
               style={AddModalStyleContextual.icon}
               name="ios-close-circle"
               size={40}
-              color="#ff7A00"
+              color={COLORS.primary}
             />
           </TouchableOpacity>
           <Text style={AddModalStyleContextual.title}>TACHE</Text>
@@ -39,11 +41,25 @@ export const TodoModal = ({ modalVisible, closeModal, onValidate }) => {
               value={name}
               placeholder={"Le nom de ma tache"}
             />
+            {isEmpty && (
+              <Text style={AddModalStyleContextual.errorMessage}>
+                Il manque le nom de votre tache
+              </Text>
+            )}
           </View>
           <TouchableOpacity
-            style={AddModalStyleContextual.button}
+            style={
+              name
+                ? AddModalStyleContextual.button
+                : AddModalStyleContextual.buttonDisabled
+            }
             onPress={() => {
-              onValidate(name), setName(null), closeModal();
+              name
+                ? (onValidate(name),
+                  setName(null),
+                  setIsEmpty(false),
+                  closeModal())
+                : setIsEmpty(true);
             }}
           >
             <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
@@ -63,7 +79,7 @@ const AddModalStyle = () =>
     },
     inputText: {
       borderBottomWidth: 1,
-      borderColor: "#ff7a00",
+      borderColor: COLORS.primary,
     },
     modalContainer: {
       backgroundColor: "white",
@@ -79,7 +95,7 @@ const AddModalStyle = () =>
     },
     textArea: {
       borderWidth: 1,
-      borderColor: "#ff7a00",
+      borderColor: COLORS.primary,
       borderRadius: 10,
       padding: 10,
     },
@@ -95,7 +111,14 @@ const AddModalStyle = () =>
       fontWeight: "bold",
     },
     button: {
-      backgroundColor: "#ff7a00",
+      backgroundColor: COLORS.primary,
+      width: 140,
+      paddingTop: 8,
+      paddingBottom: 8,
+      borderRadius: 50,
+    },
+    buttonDisabled: {
+      backgroundColor: COLORS.lightGrey,
       width: 140,
       paddingTop: 8,
       paddingBottom: 8,
@@ -110,5 +133,9 @@ const AddModalStyle = () =>
       position: "absolute",
       right: -13,
       top: -13,
+    },
+    errorMessage: {
+      color: "red",
+      marginTop: 8,
     },
   });
