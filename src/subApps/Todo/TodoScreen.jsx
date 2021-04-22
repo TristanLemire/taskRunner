@@ -5,9 +5,11 @@ import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { TodoModal } from "./TodoModal";
 
 export function TodoScreen(props) {
   const [todos, setTodos] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
   // const [isPushed, setIsPushed] = useState(false);
 
   const userId = props.route.params.user.id;
@@ -110,13 +112,14 @@ export function TodoScreen(props) {
               style={styles.addIcon}
             />
           }
-          onPress={() =>
-            console.log(
-              "PA ici tu fais un fonction qui t'ouvre la modal d'ajout d'une nouvelle tache"
-            )
-          }
+          onPress={() => setIsVisible(true)}
         />
       </View>
+      <TodoModal
+        modalVisible={isVisible}
+        closeModal={() => setIsVisible(false)}
+        user={props.route.params.user}
+      />
     </View>
   );
 }

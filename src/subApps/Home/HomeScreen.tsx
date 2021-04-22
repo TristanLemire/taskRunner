@@ -10,10 +10,12 @@ import {
 } from "react-native";
 
 import { MiniProfile } from "./Components/MiniProfile";
+import { UsersMap } from "./Components/UsersMap";
 import { ErrorMessage } from "../../components/error";
 
 import { SearchBar } from "react-native-elements";
-import { User } from "../../../App";
+import { User } from "../../typing";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 type HomeScreenProps = {
   users: User[] | null;
@@ -22,8 +24,8 @@ type HomeScreenProps = {
   retry: () => void;
 };
 
-export function HomeScreen(props: HomeScreenProps) {
-  const HomeScreenContextual = HomeScreenStyle();
+export const HomeScreen = (props: HomeScreenProps) => {
+  const style = HomeScreenStyle();
   const [value, setValue] = useState<string | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
 
@@ -46,17 +48,17 @@ export function HomeScreen(props: HomeScreenProps) {
 
   return (
     <>
-      <SafeAreaView style={HomeScreenContextual.droidSafeArea}>
+      <SafeAreaView style={style.droidSafeArea}>
         <ScrollView>
           {props.error && (
             <ErrorMessage
               message={
-                "Veuillez nous pardonner une erreur a du se produire de notre coter, veuillez réessayer."
+                "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
               }
               retry={props.retry}
             />
           )}
-          <Text style={HomeScreenContextual.title}>Choisir un utilisateur</Text>
+          <Text style={style.title}>Choisir un utilisateur</Text>
           <SearchBar
             platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme
@@ -65,7 +67,7 @@ export function HomeScreen(props: HomeScreenProps) {
               onChangeSearch(newVal);
             }}
             placeholder="Chercher un utilisateur ..."
-            placeholderTextColor="#888"
+            placeholderTextColor={COLORS.grey}
             round
             onClearText={() => setUsers(props.users)}
             value={value}
@@ -76,34 +78,35 @@ export function HomeScreen(props: HomeScreenProps) {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => props.setUser(item)}
-                  style={HomeScreenContextual.container}
+                  style={style.container}
                 >
                   <MiniProfile item={item}></MiniProfile>
                 </TouchableOpacity>
               )}
             />
           )}
+          {users !== null && <UsersMap users={users} />}
         </ScrollView>
       </SafeAreaView>
     </>
   );
-}
+};
 
 const HomeScreenStyle = () =>
   StyleSheet.create({
     title: {
-      margin: 16,
-      color: "#20232a",
+      margin: SPACES.xdefault,
+      color: COLORS.black,
       textAlign: "center",
-      fontSize: 30,
+      fontSize: FONTSIZES.xlarge,
       fontWeight: "bold",
     },
     container: {
-      margin: 8,
-      padding: 8,
+      margin: SPACES.default,
+      padding: SPACES.default,
     },
     droidSafeArea: {
       flex: 1,
-      paddingTop: Platform.OS === "android" ? 25 : 0,
+      paddingTop: Platform.OS === "android" ? SPACES.large : SPACES.none,
     },
   });

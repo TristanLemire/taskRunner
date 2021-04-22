@@ -5,10 +5,22 @@ import { StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Consumer } from "../../App";
+
+import { COLORS, SPACES } from "../assets/tokens";
+
 const Stack = createStackNavigator();
 
 export function UserNavigation(props) {
-  const UserNavigationStyleContextual = UserNavigationStyle();
+  const style = UserNavigationStyle();
+
+  const {
+    route: {
+      params: {
+        user,
+        user: { name },
+      },
+    },
+  } = props;
 
   return (
     <Consumer>
@@ -18,31 +30,31 @@ export function UserNavigation(props) {
             name="User"
             component={UserScreen}
             initialParams={{
-              user: props.route.params.user,
+              user: user,
             }}
             options={{
               headerRight: () => (
                 <TouchableOpacity
                   onPress={() => value.onChange(null)}
-                  style={UserNavigationStyleContextual.container}
+                  style={style.container}
                 >
                   <Ionicons
                     name={"ios-exit-outline"}
-                    size={25}
-                    color={"#fff"}
+                    size={SPACES.large}
+                    color={COLORS.white}
                   />
                 </TouchableOpacity>
               ),
-              title: `${props.route.params.user.name}`,
+              title: `${name}`,
               headerStyle: {
-                backgroundColor: "#ff7A00",
+                backgroundColor: COLORS.primary,
                 shadowRadius: 0,
                 shadowOffset: {
-                  height: 0,
+                  height: SPACES.none,
                 },
               },
               headerTitleStyle: {
-                color: "#fff",
+                color: COLORS.white,
               },
             }}
           />
@@ -55,6 +67,6 @@ export function UserNavigation(props) {
 const UserNavigationStyle = () =>
   StyleSheet.create({
     container: {
-      marginRight: 24,
+      marginRight: SPACES.large,
     },
   });
