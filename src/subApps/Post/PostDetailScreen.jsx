@@ -9,9 +9,12 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
+
 import { MiniComment } from "./Components/MiniComment";
 import { AddModal } from "../../components/Modal/Modal";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();
@@ -131,7 +134,7 @@ export function PostDetailScreen(props) {
   return (
     <View style={style.page}>
       <View style={style.postContainer}>
-        <View style={{ margin: 24 }}>
+        <View style={style.articleContainer}>
           <Text style={style.title}>{title}</Text>
           <Text style={style.body}>{body}</Text>
         </View>
@@ -152,7 +155,7 @@ export function PostDetailScreen(props) {
               <ActivityIndicator
                 style={{ marginTop: 100 }}
                 size="large"
-                color="white"
+                color={COLORS.white}
               />
             ) : (
               <FlatList
@@ -180,15 +183,18 @@ const PostDetailScreenStyle = () =>
     postContainer: {
       flex: 1,
     },
+    articleContainer: {
+      margin: SPACES.large,
+    },
     title: {
-      color: "#20232a",
-      fontSize: 20,
+      color: COLORS.black,
+      fontSize: FONTSIZES.large,
       fontWeight: "bold",
     },
     body: {
-      fontSize: 15,
-      marginTop: 16,
-      lineHeight: 22,
+      fontSize: FONTSIZES.default,
+      marginTop: SPACES.xdefault,
+      lineHeight: SPACES.large,
     },
     buttonContainer: {
       flex: 1,
@@ -197,7 +203,7 @@ const PostDetailScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.primary,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
@@ -206,16 +212,16 @@ const PostDetailScreenStyle = () =>
       flex: 3,
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.primary,
     },
     commentTitle: {
-      fontSize: 20,
+      fontSize: FONTSIZES.large,
       alignSelf: "center",
-      color: "white",
-      marginVertical: 24,
+      color: COLORS.white,
+      marginVertical: SPACES.large,
     },
     buttonText: {
       textAlign: "center",
-      color: "white",
+      color: COLORS.white,
     },
   });

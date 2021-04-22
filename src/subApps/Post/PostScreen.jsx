@@ -9,6 +9,7 @@ import {
 
 import { MiniPost } from "./Components/MiniPost";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 
 export function PostScreen(props) {
   const style = PostScreenStyle();
@@ -39,7 +40,7 @@ export function PostScreen(props) {
         <ActivityIndicator
           style={{ marginTop: 100 }}
           size="large"
-          color="#ff7A00"
+          color={COLORS.primary}
         />
       ) : (
         <FlatList
@@ -69,16 +70,16 @@ const PostScreenStyle = () =>
     },
     postContainer: {
       flex: 1,
-      margin: 24,
+      margin: SPACES.large,
     },
     title: {
-      color: "#20232a",
-      fontSize: 20,
+      color: COLORS.black,
+      fontSize: FONTSIZES.large,
       fontWeight: "bold",
     },
     body: {
-      fontSize: 15,
-      marginTop: 16,
+      fontSize: FONTSIZES.default,
+      marginTop: SPACES.xdefault,
     },
     buttonContainer: {
       flex: 1,
@@ -87,7 +88,7 @@ const PostScreenStyle = () =>
       width: "80%",
     },
     buttonComment: {
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.primary,
       borderRadius: 100,
       height: "40%",
       justifyContent: "center",
@@ -95,12 +96,12 @@ const PostScreenStyle = () =>
     commentContainer: {
       flex: 3,
       borderRadius: 30,
-      backgroundColor: "#FF7A00",
+      backgroundColor: COLORS.primary,
     },
     commentTitle: {
-      fontSize: 20,
+      fontSize: FONTSIZES.large,
       alignSelf: "center",
-      color: "white",
-      marginVertical: 24,
+      color: COLORS.white,
+      marginVertical: SPACES.large,
     },
   });

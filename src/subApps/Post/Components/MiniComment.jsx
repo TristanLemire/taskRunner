@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
+import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
 export function MiniComment(props) {
   const style = MiniCommentStyle();
@@ -20,25 +21,25 @@ export function MiniComment(props) {
 const MiniCommentStyle = () =>
   StyleSheet.create({
     listItem: {
-      margin: 12,
-      marginBottom: 4,
+      margin: SPACES.xdefault,
+      marginBottom: SPACES.small,
       backgroundColor: "white",
       borderRadius: 10,
-      padding: 12,
+      padding: SPACES.xdefault,
     },
     title: {
-      color: "#20232a",
-      fontSize: 15,
+      color: COLORS.black,
+      fontSize: FONTSIZES.default,
       fontWeight: "bold",
     },
     email: {
       fontStyle: "italic",
-      color: "#808080",
-      fontSize: 10,
+      color: COLORS.grey,
+      fontSize: FONTSIZES.small,
     },
     body: {
-      fontSize: 12,
-      paddingTop: 8,
-      lineHeight: 18,
+      fontSize: FONTSIZES.small,
+      paddingTop: SPACES.default,
+      lineHeight: SPACES.xdefault,
     },
   });

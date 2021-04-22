@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TodoScreen } from "../subApps/Todo/TodoScreen";
+import { COLORS } from "../assets/tokens";
 
 const Stack = createStackNavigator();
 
@@ -21,10 +22,10 @@ export function TodoNavigation(props) {
         }}
         options={{
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />

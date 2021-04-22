@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PostScreen } from "../subApps/Post/PostScreen";
 import { PostDetailScreen } from "../subApps/Post/PostDetailScreen";
+import { COLORS } from "../assets/tokens";
 
 const Stack = createStackNavigator();
 
@@ -23,10 +24,10 @@ export function PostNavigation(props) {
         options={{
           headerTitle: "Posts",
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />
@@ -35,12 +36,12 @@ export function PostNavigation(props) {
         component={PostDetailScreen}
         options={{
           headerTitle: "Detail",
-          headerTintColor: "white",
+          headerTintColor: COLORS.white,
           headerStyle: {
-            backgroundColor: "#ff7A00",
+            backgroundColor: COLORS.primary,
           },
           headerTitleStyle: {
-            color: "#fff",
+            color: COLORS.white,
           },
         }}
       />
