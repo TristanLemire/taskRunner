@@ -59,7 +59,7 @@ export function TodoScreen(props) {
   };
 
   const getApiTodos = () => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`)
+    fetch(`https://jsonplaceholder.cypress.io/users/${userId}/todos`)
       .then((response) => response.json())
       .then((json) => {
         storeData(json);

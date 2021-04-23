@@ -21,7 +21,7 @@ export function AlbumScreen(props) {
     setError(false);
     setIspending(true);
     fetch(
-      `https://jsonplaceholder.typicode.com/albums?userId=${props.route.params.user.id}`
+      `https://jsonplaceholder.cypress.io/albums?userId=${props.route.params.user.id}`
     )
       .then((response) => response.json())
       .then((json) => {

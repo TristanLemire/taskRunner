@@ -50,6 +50,7 @@ export const HomeScreen = (props: HomeScreenProps) => {
     <>
       <SafeAreaView style={style.droidSafeArea}>
         <ScrollView>
+          <Text style={style.title}>Choisir un utilisateur</Text>
           {props.error && (
             <ErrorMessage
               message={
@@ -58,7 +59,6 @@ export const HomeScreen = (props: HomeScreenProps) => {
               retry={props.retry}
             />
           )}
-          <Text style={style.title}>Choisir un utilisateur</Text>
           <SearchBar
             platform={Platform.OS === "ios" ? "ios" : "android"}
             lightTheme

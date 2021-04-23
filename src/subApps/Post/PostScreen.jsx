@@ -19,7 +19,7 @@ export function PostScreen(props) {
   const [isPending, setIsPending] = useState(false);
 
   const getPosts = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    fetch(`https://jsonplaceholder.cypress.io/posts`)
       .then((response) => response.json())
       .then((json) => {
         setPosts(

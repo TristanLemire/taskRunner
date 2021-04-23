@@ -10,11 +10,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import { MiniComment } from "./Components/MiniComment";[]
+import { MiniComment } from "./Components/MiniComment";
 
 import { COLORS, FONTSIZES, SPACES } from "../../assets/tokens";
 import { AddCommentModal } from "./Components/CommentModal";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function PostDetailScreen(props) {
   const style = PostDetailScreenStyle();
@@ -23,7 +23,7 @@ export function PostDetailScreen(props) {
     route: {
       params: {
         post: { id: postId, body, title },
-        user
+        user,
       },
     },
   } = props;
@@ -43,19 +43,21 @@ export function PostDetailScreen(props) {
     callAwait();
   }, []);
 
-  console.log('comments', comments);
-
   const closeModal = () => {
     setModalVisible(false);
   };
 
   const getComments = async () => {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+    const response = await fetch(
+      `https://jsonplaceholder.cypress.io/comments?postId=${postId}`
+    );
     const comments = await response.json();
     setCommentsApi(comments);
-    const responseLength = await fetch(`https://jsonplaceholder.typicode.com/comments`)
+    const responseLength = await fetch(
+      `https://jsonplaceholder.cypress.io/comments`
+    );
     const commentsLength = await responseLength.json();
-    setCommentsLength(commentsLength.length)
+    setCommentsLength(commentsLength.length);
     const filteredComments = await getLocalStorageComments();
     setComments([...filteredComments, ...comments]);
     setIsPending(false);
@@ -63,73 +65,64 @@ export function PostDetailScreen(props) {
 
   const getLocalStorageComments = async () => {
     try {
-      var localStorageComments = await AsyncStorage.getItem('comments');
-      localStorageComments = JSON.parse(localStorageComments)
+      var localStorageComments = await AsyncStorage.getItem("comments");
+      localStorageComments = JSON.parse(localStorageComments);
 
       if (localStorageComments === null) return [];
 
-      setCommentsLength(localStorageComments[0].id)
-      const filteredComments = localStorageComments.filter( (comment) => {
-        return comment.postId === postId; 
+      setCommentsLength(localStorageComments[0].id);
+      const filteredComments = localStorageComments.filter((comment) => {
+        return comment.postId === postId;
       });
 
-      console.log('localStorageComments', filteredComments);
       return filteredComments;
-
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  const clearAppData = async function() {
+  const clearAppData = async function () {
     try {
-        const keys = await AsyncStorage.getAllKeys();
-        await AsyncStorage.multiRemove(keys);
-        console.log('data cleared')
+      const keys = await AsyncStorage.getAllKeys();
+      await AsyncStorage.multiRemove(keys);
     } catch (error) {
-        console.error('Error clearing app data.');
+      console.error("Error clearing app data.");
     }
-  }
-
-  console.log(commentsLength);
+  };
 
   const saveComment = async (commentBody, commentTitle) => {
     const comment = {
-      "body" : commentBody,
-      "email" : userMail,
-      "id": commentsLength + 1,
-      "name": commentTitle,
-      "postId": postId
-    }
+      body: commentBody,
+      email: userMail,
+      id: commentsLength + 1,
+      name: commentTitle,
+      postId: postId,
+    };
     try {
-      var localStorageComments = await AsyncStorage.getItem('comments');
+      var localStorageComments = await AsyncStorage.getItem("comments");
 
-      if(localStorageComments !== null) {
+      if (localStorageComments !== null) {
         localStorageComments = JSON.parse(localStorageComments);
-        console.log('jsonLocalStorageComments', localStorageComments);
 
         localStorageComments.unshift(comment);
-
       } else {
         localStorageComments = [];
         localStorageComments.unshift(comment);
       }
       const jsonComment = JSON.stringify(localStorageComments);
-      await AsyncStorage.setItem('comments', jsonComment);
+      await AsyncStorage.setItem("comments", jsonComment);
 
-      const filteredComments = localStorageComments.filter( (comment) => {
-        return comment.postId === postId; 
+      const filteredComments = localStorageComments.filter((comment) => {
+        return comment.postId === postId;
       });
       setComments([...filteredComments, ...commentsApi]);
       setCommentsLength(commentsLength + 1);
       closeModal();
-
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-    localStorageComments = await AsyncStorage.getItem('comments')
-    console.log('Comments', localStorageComments);
-  }
+    localStorageComments = await AsyncStorage.getItem("comments");
+  };
 
   return (
     <View style={style.page}>

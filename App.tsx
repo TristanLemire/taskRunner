@@ -67,7 +67,7 @@ export default function App() {
 
   const fetchUsers = () => {
     setError(false);
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://jsonplaceholder.cypress.io/users")
       .then((response) => response.json())
       .then((json) => {
         const newJson = json.map((item: User) => {

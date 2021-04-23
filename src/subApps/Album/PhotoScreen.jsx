@@ -25,7 +25,7 @@ export function PhotoScreen(props) {
     setIspending(true);
     setError(false);
     fetch(
-      `https://jsonplaceholder.typicode.com/photos?albumId=${props.route.params.albumId}`
+      `https://jsonplaceholder.cypress.io/photos?albumId=${props.route.params.albumId}`
     )
       .then((response) => response.json())
       .then((json) => {
@@ -50,7 +50,7 @@ export function PhotoScreen(props) {
 
   const PhotoContextual = PhotoStyle();
   if (error) {
-    reutrn(
+    return (
       <ErrorMessage
         message={
           "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
