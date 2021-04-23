@@ -3,7 +3,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  ScrollView,
+  View,
   ActivityIndicator,
 } from "react-native";
 
@@ -35,7 +35,7 @@ export function PostScreen(props) {
   }, []);
 
   return (
-    <ScrollView style={style.page}>
+    <View style={style.page}>
       {isPending ? (
         <ActivityIndicator
           style={{ marginTop: 100 }}
@@ -59,7 +59,7 @@ export function PostScreen(props) {
           )}
         />
       )}
-    </ScrollView>
+    </View>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Text,
-  ScrollView,
   SafeAreaView,
   FlatList,
   TouchableOpacity,
@@ -49,44 +48,42 @@ export const HomeScreen = (props: HomeScreenProps) => {
   return (
     <>
       <SafeAreaView style={style.droidSafeArea}>
-        <ScrollView>
-          <Text style={style.title}>Choisir un utilisateur</Text>
-          {props.error && (
-            <ErrorMessage
-              message={
-                "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
-              }
-              retry={props.retry}
-            />
-          )}
-          <SearchBar
-            platform={Platform.OS === "ios" ? "ios" : "android"}
-            lightTheme
-            onChangeText={(newVal) => {
-              setValue(newVal);
-              onChangeSearch(newVal);
-            }}
-            placeholder="Chercher un utilisateur ..."
-            placeholderTextColor={COLORS.grey}
-            round
-            onClearText={() => setUsers(props.users)}
-            value={value}
+        <Text style={style.title}>Choisir un utilisateur</Text>
+        {props.error && (
+          <ErrorMessage
+            message={
+              "Oups ! Une erreur s'est glissée dans la page, veuillez réessayer."
+            }
+            retry={props.retry}
           />
-          {users !== null && (
-            <FlatList
-              data={users}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => props.setUser(item)}
-                  style={style.container}
-                >
-                  <MiniProfile item={item}></MiniProfile>
-                </TouchableOpacity>
-              )}
-            />
-          )}
-          {users !== null && <UsersMap users={users} />}
-        </ScrollView>
+        )}
+        <SearchBar
+          platform={Platform.OS === "ios" ? "ios" : "android"}
+          lightTheme
+          onChangeText={(newVal) => {
+            setValue(newVal);
+            onChangeSearch(newVal);
+          }}
+          placeholder="Chercher un utilisateur ..."
+          placeholderTextColor={COLORS.grey}
+          round
+          onClearText={() => setUsers(props.users)}
+          value={value}
+        />
+        {users !== null && (
+          <FlatList
+            data={users}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => props.setUser(item)}
+                style={style.container}
+              >
+                <MiniProfile item={item}></MiniProfile>
+              </TouchableOpacity>
+            )}
+          />
+        )}
+        {users !== null && <UsersMap users={users} />}
       </SafeAreaView>
     </>
   );

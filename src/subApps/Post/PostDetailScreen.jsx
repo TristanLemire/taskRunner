@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  ScrollView,
   FlatList,
   ActivityIndicator,
 } from "react-native";
@@ -143,7 +142,6 @@ export function PostDetailScreen(props) {
         <View style={style.commentContainer}>
           <Text style={style.commentTitle}>COMMENTAIRES</Text>
 
-          <ScrollView>
             {isPending ? (
               <ActivityIndicator
                 style={{ marginTop: 100 }}
@@ -156,7 +154,6 @@ export function PostDetailScreen(props) {
                 renderItem={({ item }) => <MiniComment comment={item} />}
               />
             )}
-          </ScrollView>
         </View>
       </View>
       <AddCommentModal
