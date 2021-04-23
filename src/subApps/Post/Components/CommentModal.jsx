@@ -9,10 +9,10 @@ import {
   Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { COLORS } from "../../../assets/tokens";
+import { COLORS, FONTSIZES, SPACES } from "../../../assets/tokens";
 
 export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
-  const AddModalStyleContextual = AddModalStyle();
+  const style = CommentModalStyle();
   const [commentTitle, setCommentTitle] = useState(null);
   const [commentBody, setCommentBody] = useState(null);
   const [isEmptyTitle, setIsEmptyTitle] = useState(false);
@@ -20,10 +20,10 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
-      <View style={AddModalStyleContextual.modal}>
-        <View style={AddModalStyleContextual.modalContainer}>
+      <View style={style.modal}>
+        <View style={style.modalContainer}>
           <TouchableOpacity
-            style={AddModalStyleContextual.clodeButton}
+            style={style.closeButton}
             onPress={() => {
               setCommentTitle(null),
                 setCommentBody(null),
@@ -33,19 +33,16 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
             }}
           >
             <Ionicons
-              style={AddModalStyleContextual.icon}
               name="ios-close-circle"
               size={40}
-              color="#ff7A00"
+              color={COLORS.primary}
             />
           </TouchableOpacity>
-          <Text style={AddModalStyleContextual.title}>
-            AJOUTER UN COMMENTAIRE
-          </Text>
-          <View style={AddModalStyleContextual.input}>
-            <Text style={AddModalStyleContextual.inputTitle}>Titre</Text>
+          <Text style={style.modalTitle}>Ajouter un commentaire</Text>
+          <View style={style.input}>
+            <Text style={style.inputTitle}>Titre</Text>
             <TextInput
-              style={AddModalStyleContextual.inputText}
+              style={style.inputTextTitle}
               onChangeText={(value) => {
                 setCommentTitle(value);
               }}
@@ -53,34 +50,30 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
               placeholder={"Titre du commentaire"}
             />
             {isEmptyTitle && (
-              <Text style={AddModalStyleContextual.errorMessage}>
+              <Text style={style.errorMessage}>
                 Il manque le titre de votre commentaire
               </Text>
             )}
           </View>
-          <View style={AddModalStyleContextual.input}>
-            <Text style={AddModalStyleContextual.textAreaTitle}>
-              Commentaire
-            </Text>
+          <View style={style.input}>
+            <Text style={style.inputTitle}>Commentaire</Text>
             <TextInput
               multiline={true}
               numberOfLines={3}
-              style={AddModalStyleContextual.textArea}
+              style={style.inputTextComment}
               onChangeText={(value) => setCommentBody(value)}
               value={commentBody}
-              placeholder={"Ecris ton commentaire ici"}
+              placeholder={"Mon commentaire ..."}
             />
             {isEmptyComment && (
-              <Text style={AddModalStyleContextual.errorMessage}>
+              <Text style={style.errorMessage}>
                 Il manque votre commentaire
               </Text>
             )}
           </View>
           <TouchableOpacity
             style={
-              commentTitle && commentBody
-                ? AddModalStyleContextual.button
-                : AddModalStyleContextual.buttonDisabled
+              commentTitle && commentBody ? style.button : style.buttonDisabled
             }
             onPress={() => {
               !commentTitle || !commentBody
@@ -93,7 +86,7 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
                   setIsEmptyComment(false));
             }}
           >
-            <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
+            <Text style={style.buttonText}>AJOUTER</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -101,73 +94,74 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
   );
 };
 
-const AddModalStyle = () =>
+const CommentModalStyle = () =>
   StyleSheet.create({
     modal: {
       backgroundColor: "rgba(52, 52, 52, 0.609)",
       flex: 1,
       justifyContent: "center",
     },
-    inputText: {
-      borderBottomWidth: 1,
-      borderColor: COLORS.primary,
-      alignSelf: "stretch",
-    },
     modalContainer: {
-      backgroundColor: "white",
-      margin: 24,
       borderRadius: 10,
-      padding: 20,
+      backgroundColor: COLORS.white,
+      margin: SPACES.large,
+      padding: SPACES.large,
       alignItems: "center",
     },
-    title: {
-      textAlign: "center",
-      marginBottom: 24,
-      fontSize: 18,
-    },
-    textArea: {
-      borderWidth: 1,
-      borderColor: COLORS.primary,
-      borderRadius: 10,
-      padding: 10,
-    },
-    input: {
-      marginBottom: 16,
-      width: Dimensions.get("screen").width / 1.3,
-    },
-    inputTitle: {
-      fontWeight: "bold",
-    },
-    textAreaTitle: {
-      marginBottom: 8,
-      fontWeight: "bold",
-    },
-    button: {
-      backgroundColor: COLORS.primary,
-      width: 140,
-      paddingTop: 8,
-      paddingBottom: 8,
-      borderRadius: 50,
-    },
-    buttonDisabled: {
-      backgroundColor: COLORS.lightGrey,
-      width: 140,
-      paddingTop: 8,
-      paddingBottom: 8,
-      borderRadius: 50,
-    },
-    buttonText: {
-      textAlign: "center",
-      color: "white",
-      fontSize: 20,
-    },
-    clodeButton: {
+    closeButton: {
       position: "absolute",
       right: -13,
       top: -13,
     },
+    modalTitle: {
+      color: COLORS.black,
+      textTransform: "uppercase",
+      textAlign: "center",
+      marginVertical: SPACES.large,
+      fontSize: FONTSIZES.large,
+    },
+    input: {
+      marginVertical: SPACES.large,
+      width: Dimensions.get("screen").width / 1.3,
+    },
+    inputTitle: {
+      fontWeight: "bold",
+      marginBottom: SPACES.default,
+    },
+    inputTextTitle: {
+      borderBottomWidth: 1,
+      borderColor: COLORS.primary,
+      alignSelf: "stretch",
+    },
+    inputTextComment: {
+      borderWidth: 1,
+      borderColor: COLORS.primary,
+      borderRadius: 10,
+      padding: SPACES.default,
+      marginTop: SPACES.default,
+    },
     errorMessage: {
-      color: "red",
-      marginTop: 8,
+      color: COLORS.error,
+      marginTop: SPACES.xdefault,
+    },
+
+    button: {
+      backgroundColor: COLORS.primary,
+      width: 140,
+      paddingVertical: SPACES.default,
+      borderRadius: 50,
+      marginTop: SPACES.large,
+    },
+    buttonDisabled: {
+      backgroundColor: COLORS.lightGrey,
+      width: 140,
+      paddingVertical: SPACES.default,
+      borderRadius: 50,
+      marginTop: SPACES.large,
+    },
+    buttonText: {
+      textAlign: "center",
+      color: COLORS.white,
+      fontSize: FONTSIZES.large,
     },
   });
