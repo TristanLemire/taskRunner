@@ -9,11 +9,14 @@ import {
   Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { COLORS } from "../../../assets/tokens";
 
 export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
   const AddModalStyleContextual = AddModalStyle();
   const [commentTitle, setCommentTitle] = useState(null);
   const [commentBody, setCommentBody] = useState(null);
+  const [isEmptyTitle, setIsEmptyTitle] = useState(false);
+  const [isEmptyComment, setIsEmptyComment] = useState(false);
 
   return (
     <Modal animationType="fade" visible={modalVisible} transparent={true}>
@@ -22,7 +25,11 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
           <TouchableOpacity
             style={AddModalStyleContextual.clodeButton}
             onPress={() => {
-              setCommentTitle(null), setCommentBody(null), closeModal();
+              setCommentTitle(null),
+                setCommentBody(null),
+                setIsEmptyTitle(false),
+                setIsEmptyComment(false),
+                closeModal();
             }}
           >
             <Ionicons
@@ -39,14 +46,21 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
             <Text style={AddModalStyleContextual.inputTitle}>Titre</Text>
             <TextInput
               style={AddModalStyleContextual.inputText}
-              onChangeText={(value) => setCommentTitle(value)}
+              onChangeText={(value) => {
+                setCommentTitle(value);
+              }}
               value={commentTitle}
-              placeholder={"titre du commentaire"}
+              placeholder={"Titre du commentaire"}
             />
+            {isEmptyTitle && (
+              <Text style={AddModalStyleContextual.errorMessage}>
+                Il manque le titre de votre commentaire
+              </Text>
+            )}
           </View>
           <View style={AddModalStyleContextual.input}>
             <Text style={AddModalStyleContextual.textAreaTitle}>
-              Commantaire
+              Commentaire
             </Text>
             <TextInput
               multiline={true}
@@ -54,15 +68,29 @@ export const AddCommentModal = ({ modalVisible, closeModal, saveComment }) => {
               style={AddModalStyleContextual.textArea}
               onChangeText={(value) => setCommentBody(value)}
               value={commentBody}
-              placeholder={"ecris ton commentaire ici"}
+              placeholder={"Ecris ton commentaire ici"}
             />
+            {isEmptyComment && (
+              <Text style={AddModalStyleContextual.errorMessage}>
+                Il manque votre commentaire
+              </Text>
+            )}
           </View>
           <TouchableOpacity
-            style={AddModalStyleContextual.button}
+            style={
+              commentTitle && commentBody
+                ? AddModalStyleContextual.button
+                : AddModalStyleContextual.buttonDisabled
+            }
             onPress={() => {
-              saveComment(commentBody, commentTitle),
-              setCommentTitle(null),
-              setCommentBody(null)
+              !commentTitle || !commentBody
+                ? (!commentTitle && setIsEmptyTitle(true),
+                  !commentBody && setIsEmptyComment(true))
+                : (saveComment(commentBody, commentTitle),
+                  setCommentTitle(null),
+                  setCommentBody(null),
+                  setIsEmptyTitle(false),
+                  setIsEmptyComment(false));
             }}
           >
             <Text style={AddModalStyleContextual.buttonText}>AJOUTER</Text>
@@ -82,7 +110,7 @@ const AddModalStyle = () =>
     },
     inputText: {
       borderBottomWidth: 1,
-      borderColor: "#ff7a00",
+      borderColor: COLORS.primary,
       alignSelf: "stretch",
     },
     modalContainer: {
@@ -99,7 +127,7 @@ const AddModalStyle = () =>
     },
     textArea: {
       borderWidth: 1,
-      borderColor: "#ff7a00",
+      borderColor: COLORS.primary,
       borderRadius: 10,
       padding: 10,
     },
@@ -115,7 +143,14 @@ const AddModalStyle = () =>
       fontWeight: "bold",
     },
     button: {
-      backgroundColor: "#ff7a00",
+      backgroundColor: COLORS.primary,
+      width: 140,
+      paddingTop: 8,
+      paddingBottom: 8,
+      borderRadius: 50,
+    },
+    buttonDisabled: {
+      backgroundColor: COLORS.lightGrey,
       width: 140,
       paddingTop: 8,
       paddingBottom: 8,
@@ -130,5 +165,9 @@ const AddModalStyle = () =>
       position: "absolute",
       right: -13,
       top: -13,
-    }
+    },
+    errorMessage: {
+      color: "red",
+      marginTop: 8,
+    },
   });
